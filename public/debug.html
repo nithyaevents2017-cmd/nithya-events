@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Image Debug</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #eee;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .card {
+        background: white;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+        width: 150px;
+      }
+      img {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid" id="grid"></div>
+    <script>
+      const grid = document.getElementById("grid");
+      for (let i = 1; i <= 41; i++) {
+        grid.innerHTML += `
+        <div class="card">
+          <img src="src/assets/nithya/gallery/nithya_img_${i}.jpg" />
+          <p>img_${i}</p>
+        </div>
+      `;
+      }
+    </script>
+  </body>
+</html>

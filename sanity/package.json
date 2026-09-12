@@ -1,0 +1,22 @@
+{
+  "name": "nithya-events-sanity",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "dependencies": {
+    "sanity": "^3.36.0",
+    "styled-components": "^6.1.8"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^3.0.1",
+    "typescript": "^5.3.3"
+  }
+}
