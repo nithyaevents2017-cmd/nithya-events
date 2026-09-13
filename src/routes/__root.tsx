@@ -128,11 +128,14 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+import { Navbar } from "../components/Navbar";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Navbar />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <FloatingContact />

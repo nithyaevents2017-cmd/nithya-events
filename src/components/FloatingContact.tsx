@@ -19,7 +19,7 @@ export function FloatingContact() {
 
       {/* Call */}
       <a
-        href="tel:9030102663"
+        href="tel:9030119257"
         aria-label="Call NithyA EventS"
         className="group relative flex items-center justify-center w-12 h-12 md:w-[56px] md:h-[56px] rounded-full bg-[#2D68F8] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] active:scale-95"
       >
