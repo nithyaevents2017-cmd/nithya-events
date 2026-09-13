@@ -156,9 +156,9 @@ function Home() {
               Get In Touch
             </a>
             <a
-              href="https://wa.me/message/5FMZUR4TFHRSH1"
+              href="https://wa.me/919030119257"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="btn-outline-gold w-full sm:w-auto"
             >
               WhatsApp Us
