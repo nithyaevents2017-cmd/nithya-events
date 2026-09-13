@@ -186,7 +186,7 @@ function GalleryPage() {
       {/* Gallery Section */}
       <section className="mx-auto max-w-7xl px-5 py-12 pb-24">
         <div className="text-center">
-          <p className="eyebrow uppercase tracking-[0.2em] text-primary text-[0.68rem]">Gallery</p>
+          <p className="eyebrow">Gallery</p>
           <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display">
             Moments We Have <span className="text-primary">Created</span>
           </h1>

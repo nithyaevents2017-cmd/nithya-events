@@ -445,7 +445,7 @@ function Home() {
                 className="border border-border bg-background p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]"
               >
                 <h3 className="text-2xl">{m.name}</h3>
-                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-primary">
+                <p className="eyebrow mt-1">
                   {m.role}
                 </p>
                 <span className="gold-rule mt-4" />
@@ -563,7 +563,7 @@ function Home() {
             <span className="gold-rule mt-6" />
             <dl className="mt-10 space-y-6 text-sm">
               <div>
-                <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Office</dt>
+                <dt className="eyebrow">Office</dt>
                 <dd className="mt-2 leading-relaxed text-muted-foreground">
                   <a
                     href="https://maps.app.goo.gl/diXFAcpov7S1f7Bp7"
@@ -580,7 +580,7 @@ function Home() {
                 </dd>
               </div>
               <div>
-                <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Phone</dt>
+                <dt className="eyebrow">Phone</dt>
                 <dd className="mt-2 flex flex-col gap-1 text-muted-foreground">
                   <a href="tel:9030119257" className="hover:text-primary">
                     9030119257
@@ -604,7 +604,7 @@ function Home() {
                   activations, and annual days.
                 </p>
                 <div className="mb-6">
-                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-primary mb-2">
+                  <p className="eyebrow mb-2">
                     Corporate Email
                   </p>
                   <a
@@ -641,7 +641,7 @@ function Home() {
               </div>
 
               <div className="pt-8">
-                <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Social</dt>
+                <dt className="eyebrow">Social</dt>
                 <dd className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
                   <a
                     href="https://www.instagram.com/nithyaevents.in?stkn=MWx1MmRjdmRib245bQ=="
