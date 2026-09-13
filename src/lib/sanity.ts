@@ -1,6 +1,5 @@
 import { createClient } from "@sanity/client";
 import createImageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // Setup the read-only client for fetching data
 export const sanityClient = createClient({
@@ -13,12 +12,14 @@ export const sanityClient = createClient({
 // Setup the image URL builder
 const builder = createImageUrlBuilder(sanityClient);
 
-export function urlFor(source: SanityImageSource) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function urlFor(source: any) {
   return builder.image(source);
 }
 
 export type SanityGalleryImage = {
   _id: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any;
   _createdAt: string;
 };

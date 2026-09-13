@@ -111,7 +111,7 @@ const servicesList = [
   {
     title: "CINEMATOGRAPHIC WEDDING",
     description:
-      "A Wedding Picture tells a story When it captures \"Interactions\"! We mainly focus on Client’s requirements with the skills of our talented Team in bringing candid photography, wedding videography..",
+      'A Wedding Picture tells a story When it captures "Interactions"! We mainly focus on Client’s requirements with the skills of our talented Team in bringing candid photography, wedding videography..',
     img: cinematographicImg,
   },
   {

@@ -94,7 +94,6 @@ const stats = [
   { value: "100%", label: "Satisfaction" },
 ];
 
-
 const whyPoints = [
   "We listen before we create.",
   "We plan before we execute.",
@@ -342,7 +341,6 @@ function Home() {
         </div>
       </section>
 
-
       {/* Why / Promise */}
       <section className="mx-auto max-w-7xl px-5 py-24">
         <div className="grid gap-14 lg:grid-cols-2">
@@ -467,7 +465,7 @@ function Home() {
               What Our <span className="text-primary">Clients Say</span>
             </h2>
           </div>
-          
+
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Review 1 */}
             <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
@@ -486,7 +484,8 @@ function Home() {
                 ))}
               </div>
               <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "Nithya events did a fantastic job organised the pm vishwakarma awareness program. The arrangements, stage setup and coordination were very professional."
+                "Nithya events did a fantastic job organised the pm vishwakarma awareness program.
+                The arrangements, stage setup and coordination were very professional."
               </p>
               <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
             </article>
@@ -508,7 +507,8 @@ function Home() {
                 ))}
               </div>
               <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "The PM Vishwakarma program organised under MSME was executed excellently by Nithya events."
+                "The PM Vishwakarma program organised under MSME was executed excellently by Nithya
+                events."
               </p>
               <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
             </article>
@@ -530,7 +530,9 @@ function Home() {
                 ))}
               </div>
               <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "I recently had the pleasure of working with Nithya Events, and I must say, they exceeded all my expectations! The team's attention to detail, creativity, and professionalism are truly unmatched ..."
+                "I recently had the pleasure of working with Nithya Events, and I must say, they
+                exceeded all my expectations! The team's attention to detail, creativity, and
+                professionalism are truly unmatched ..."
               </p>
               <p className="mt-6 text-xs text-muted-foreground">a year ago</p>
             </article>
@@ -600,11 +602,17 @@ function Home() {
                   Need a professional event planned for your team?
                 </h3>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Reach out to our specialized corporate planning team for conferences, brand activations, and annual days.
+                  Reach out to our specialized corporate planning team for conferences, brand
+                  activations, and annual days.
                 </p>
                 <div className="mb-6">
-                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-primary mb-2">Corporate Email</p>
-                  <a href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you." className="text-foreground hover:text-primary transition-colors font-medium">
+                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-primary mb-2">
+                    Corporate Email
+                  </p>
+                  <a
+                    href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you."
+                    className="text-foreground hover:text-primary transition-colors font-medium"
+                  >
                     Team.nithyaevents@gmail.com
                   </a>
                 </div>

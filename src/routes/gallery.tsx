@@ -110,8 +110,9 @@ function GalleryPage() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className={`group relative text-[0.72rem] uppercase tracking-[0.18em] transition-colors hover:text-primary py-2 ${item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
-                    }`}
+                  className={`group relative text-[0.72rem] uppercase tracking-[0.18em] transition-colors hover:text-primary py-2 ${
+                    item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
+                  }`}
                 >
                   {item.label}
                   <span
@@ -148,10 +149,11 @@ function GalleryPage() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`py-3 text-xs uppercase tracking-[0.2em] ${item.label === "Gallery"
+                    className={`py-3 text-xs uppercase tracking-[0.2em] ${
+                      item.label === "Gallery"
                         ? "text-primary font-medium"
                         : "text-muted-foreground"
-                      }`}
+                    }`}
                   >
                     {item.label}
                   </a>
@@ -162,8 +164,9 @@ function GalleryPage() {
                   key={item.label}
                   to={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`py-3 text-xs uppercase tracking-[0.2em] [&.active]:text-primary ${item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
-                    }`}
+                  className={`py-3 text-xs uppercase tracking-[0.2em] [&.active]:text-primary ${
+                    item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
+                  }`}
                 >
                   {item.label}
                 </Link>
