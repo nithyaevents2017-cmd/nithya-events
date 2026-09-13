@@ -146,14 +146,14 @@ function Home() {
             </a>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-8">
+          <nav className="hidden lg:flex items-center justify-center gap-6">
             {nav.map((item) => {
               if (item.href.startsWith("#") || item.href.startsWith("mailto:")) {
                 return (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="group relative text-[0.72rem] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary py-2"
+                    className="group relative text-[15px] uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-primary py-2"
                   >
                     {item.label}
                     <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-primary/80 transition-all duration-300 ease-out group-hover:w-full" />
@@ -164,7 +164,7 @@ function Home() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="group relative text-[0.72rem] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary [&.active]:text-primary py-2"
+                  className="group relative text-[15px] uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-primary [&.active]:text-primary py-2"
                 >
                   {item.label}
                   <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-primary/80 transition-all duration-300 ease-out group-hover:w-full" />
@@ -540,7 +540,7 @@ function Home() {
 
           <div className="mt-16 flex justify-center">
             <a
-              href="https://www.google.com/search?q=nithya+events&oq=nithya+events&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAYgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yBggFEEUYPDIGCAYQRRg8MgYIBxBFGD3SAQgyNTY3ajBqN6gCALACAA&sourceid=chrome&source=chrome.ob&ie=UTF-8"
+              href="https://www.google.com/search?q=nithya+events&ie=UTF-8#lrd=0x3bccd8e11e018ce7:0x7aaf762b38516aa7,1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View more reviews on Google"
@@ -571,9 +571,11 @@ function Home() {
                     rel="noreferrer"
                     className="hover:text-primary transition-colors"
                   >
-                    Gandhi Rd, Islampura, Sai Nagar,
+                    MJS Business Centre
                     <br />
-                    Karimnagar, Telangana 505001, India
+                    2nd floor, Gandhi Rd, Islampura, Sai Nagar,
+                    <br />
+                    Karimnagar, Telangana 505001
                   </a>
                 </dd>
               </div>
@@ -586,16 +588,12 @@ function Home() {
                   <a href="tel:9030102663" className="hover:text-primary">
                     9030102663
                   </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Email</dt>
-                <dd className="mt-2 text-muted-foreground">
-                  <a href="mailto:nithyaevents2017@gmail.com" className="hover:text-primary">
-                    nithyaevents2017@gmail.com
+                  <a href="tel:9030119256" className="hover:text-primary">
+                    9030119256
                   </a>
                 </dd>
               </div>
+
               <div className="mt-8 rounded-md border border-border/60 bg-card/30 p-6 sm:p-8">
                 <p className="eyebrow mb-2">For Corporate Events</p>
                 <h3 className="text-xl sm:text-2xl mb-2 text-foreground">
@@ -622,6 +620,23 @@ function Home() {
                 >
                   <Mail className="h-4 w-4" />
                   EMAIL US FOR CORPORATE EVENTS
+                </a>
+              </div>
+
+              <div className="rounded-md border border-border/60 bg-card/30 p-6 sm:p-8">
+                <p className="eyebrow mb-2">For All Events</p>
+                <h3 className="text-xl sm:text-2xl mb-2 text-foreground">
+                  Need an event planned for your special occasion?
+                </h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Reach out to our event planning team for weddings, family celebrations, private parties, cultural programmes, and other special occasions.
+                </p>
+                <a
+                  href="mailto:nithyaevents2017@gmail.com"
+                  className="btn-outline-gold inline-flex items-center justify-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  EMAIL US FOR EVENTS
                 </a>
               </div>
 
@@ -764,7 +779,7 @@ This enquiry was submitted through the NithyA EventS website.`;
 
               setTimeout(() => setSent(false), 2000);
             }}
-            className="space-y-6 border border-border bg-card p-8"
+            className="space-y-6 border border-border bg-card p-8 lg:self-start"
           >
             <h3 className="text-xl">Enter Your Details</h3>
 
@@ -987,7 +1002,7 @@ This enquiry was submitted through the NithyA EventS website.`;
         <div className="mt-16 h-[400px] w-full overflow-hidden border border-border bg-card">
           <iframe
             title="NithyA EventS Location"
-            src="https://maps.google.com/maps?q=18.439679,79.1373094+(NithyA%20EventS)&t=&z=19&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=MJS%20Business%20Centre,%20Karimnagar&t=&z=19&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
