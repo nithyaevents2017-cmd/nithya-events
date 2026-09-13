@@ -5,10 +5,10 @@ export function FloatingContact() {
     <div className="fixed bottom-10 right-5 md:bottom-[50px] md:right-[28px] z-50 flex flex-col gap-4">
       {/* Location */}
       <a
-        href="https://maps.google.com/maps?q=18.451142,79.137245"
+        href="https://maps.app.goo.gl/diXFAcpov7S1f7Bp7"
         target="_blank"
         rel="noreferrer"
-        aria-label="Open Nithya Events location"
+        aria-label="Open NithyA EventS location"
         className="group relative flex items-center justify-center w-12 h-12 md:w-[56px] md:h-[56px] rounded-full bg-[#B48648] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] active:scale-95"
       >
         <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white" />
@@ -19,8 +19,8 @@ export function FloatingContact() {
 
       {/* Call */}
       <a
-        href="tel:+919030119257"
-        aria-label="Call Nithya Events"
+        href="tel:9030102663"
+        aria-label="Call NithyA EventS"
         className="group relative flex items-center justify-center w-12 h-12 md:w-[56px] md:h-[56px] rounded-full bg-[#2D68F8] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] active:scale-95"
       >
         <Phone className="w-5 h-5 md:w-6 md:h-6 text-white fill-white/10" />
@@ -34,7 +34,7 @@ export function FloatingContact() {
         href="https://wa.me/919030119257?text=Hello%20Nithya%20Events%2C%20I%20would%20like%20to%20enquire%20about%20your%20event%20services."
         target="_blank"
         rel="noreferrer"
-        aria-label="Chat with Nithya Events on WhatsApp"
+        aria-label="Chat with NithyA EventS on WhatsApp"
         className="group relative flex items-center justify-center w-12 h-12 md:w-[56px] md:h-[56px] rounded-full bg-[#25D366] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] active:scale-95"
       >
         <svg

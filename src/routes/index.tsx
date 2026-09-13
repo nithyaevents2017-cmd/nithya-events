@@ -7,8 +7,10 @@ import expTeam from "@/assets/exp-team.jpg";
 import expFilm from "@/assets/exp-film.jpg";
 import expCultural from "@/assets/exp-cultural.jpg";
 import logoImg from "@/assets/logo.png";
+import familyEventImg from "../../logo/family event.jpeg";
+import privatePartyImg from "../../logo/private party.jpeg";
 import { nithyaImages } from "@/lib/images";
-import { Instagram, Facebook, Youtube, Mail } from "lucide-react";
+import { Instagram, Facebook, Youtube, Mail, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 // Filter out exactly the valid corporate logos based on our visual audit
@@ -22,15 +24,15 @@ const clientLogos = nithyaImages.gallery.filter((img: string) =>
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nithya Events | We Celebrate Your Dreams — Karimnagar" },
+      { title: "NithyA EventS | We Celebrate Your Dreams — Karimnagar" },
       {
         name: "description",
         content:
-          "Nithya Events, Karimnagar. Since 2017 we plan weddings, corporate events, cultural programmes and private celebrations. 1000+ events across 50+ locations.",
+          "NithyA EventS, Karimnagar. Since 2017 we plan weddings, corporate events, cultural programmes and private celebrations. 1000+ events across 50+ locations.",
       },
       {
         property: "og:title",
-        content: "Nithya Events | We Celebrate Your Dreams",
+        content: "NithyA EventS | We Celebrate Your Dreams",
       },
       {
         property: "og:description",
@@ -47,16 +49,17 @@ export const Route = createFileRoute("/")({
 const nav = [
   { label: "Home", href: "#top" },
   { label: "Events", href: "#services" },
-  { label: "Services", href: "#what-we-create" },
+  { label: "Services", href: "/services" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
 ];
 
 const services = [
   {
-    title: "Family Events",
+    title: "Weddings",
     img: expWedding,
-    body: "Weddings, engagements, naming ceremonies, birthdays and anniversaries.",
+    body: "Intimate and grand destination weddings.",
   },
   {
     title: "Corporate Events",
@@ -74,13 +77,13 @@ const services = [
     body: "Audio launches, press meets, public meetings and large-scale rallies.",
   },
   {
-    title: "Weddings",
-    img: expWedding,
-    body: "Intimate and grand destination weddings.",
+    title: "Family Events",
+    img: familyEventImg,
+    body: "Weddings, engagements, naming ceremonies, birthdays and anniversaries.",
   },
   {
     title: "Private Parties",
-    img: expTeam,
+    img: privatePartyImg,
     body: "Birthdays, anniversaries, and milestones.",
   },
 ];
@@ -91,28 +94,6 @@ const stats = [
   { value: "100%", label: "Satisfaction" },
 ];
 
-const creations = [
-  {
-    title: "Event Concept Development",
-    body: "We discover and shape the vision for your event with creative concept planning.",
-  },
-  {
-    title: "Venue Selection",
-    body: "Sourcing the most stunning and appropriate venues that match your event's scale and aesthetic.",
-  },
-  {
-    title: "Technical Planning",
-    body: "State-of-the-art audio, visual, and lighting setups to deliver flawless technical execution.",
-  },
-  {
-    title: "Event Production",
-    body: "End-to-end production including decor, stage design, and ambiance curation.",
-  },
-  {
-    title: "Final Implementation",
-    body: "Seamless on-ground execution, coordination, and management on the day of the event.",
-  },
-];
 
 const whyPoints = [
   "We listen before we create.",
@@ -126,7 +107,7 @@ const team = [
   {
     name: "Nithyanand Macha",
     role: "Managing Director",
-    body: "Namaste! I'm Nithyanand, MD of Nithya Events — here, we celebrate your dreams. My skilled team of experienced event professionals makes your celebration a special one you'll remember for life.",
+    body: "Namaste! I'm Nithyanand, MD of NithyA EventS — here, we celebrate your dreams. My skilled team of experienced event professionals makes your celebration a special one you'll remember for life.",
     img: expTeam,
   },
   {
@@ -137,10 +118,19 @@ const team = [
   },
 ];
 
+const formatCustomBudget = (val: string) => {
+  const num = val.replace(/\D/g, "");
+  if (!num) return "";
+  const formatted = new Intl.NumberFormat("en-IN").format(Number(num));
+  return `₹${formatted}`;
+};
+
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [showCustomBudget, setShowCustomBudget] = useState(false);
+  const [customBudgetValue, setCustomBudgetValue] = useState("");
 
   return (
     <div id="top" className="min-h-screen bg-background">
@@ -151,7 +141,7 @@ function Home() {
             <a href="#top" className="flex items-center gap-2 transition-opacity hover:opacity-80">
               <img
                 src={logoImg}
-                alt="Nithya Events Logo"
+                alt="NithyA EventS Logo"
                 className="h-12 w-auto object-contain drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]"
               />
             </a>
@@ -159,7 +149,7 @@ function Home() {
 
           <nav className="hidden lg:flex items-center justify-center gap-8">
             {nav.map((item) => {
-              if (item.href.startsWith("#")) {
+              if (item.href.startsWith("#") || item.href.startsWith("mailto:")) {
                 return (
                   <a
                     key={item.label}
@@ -204,7 +194,7 @@ function Home() {
         {menuOpen && (
           <nav className="flex flex-col border-t border-border bg-background px-5 py-4 lg:hidden">
             {nav.map((item) => {
-              if (item.href.startsWith("#")) {
+              if (item.href.startsWith("#") || item.href.startsWith("mailto:")) {
                 return (
                   <a
                     key={item.label}
@@ -249,8 +239,14 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/60 to-background" />
         <div className="relative mx-auto max-w-4xl px-5 pt-24 text-center">
-          <p className="eyebrow">Since 2017 · Karimnagar, Telangana</p>
-          <h1 className="mt-6 text-5xl leading-tight sm:text-6xl lg:text-7xl">Nithya Events</h1>
+          <div className="mx-auto mb-6 flex w-fit items-center justify-center gap-4 rounded-full border border-primary/40 bg-primary/5 px-6 py-2 shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
+            <span className="h-[1px] w-6 sm:w-8 bg-primary/50"></span>
+            <span className="whitespace-nowrap text-[0.7rem] sm:text-xs tracking-[0.25em] text-primary/90 uppercase">
+              EST. <span className="font-semibold text-primary brightness-110 ml-1">2017</span>
+            </span>
+            <span className="h-[1px] w-6 sm:w-8 bg-primary/50"></span>
+          </div>
+          <h1 className="mt-6 text-5xl leading-tight sm:text-6xl lg:text-7xl">NithyA EventS</h1>
           <p className="mt-5 font-display text-2xl text-primary sm:text-3xl">
             We celebrate your dreams
           </p>
@@ -323,7 +319,7 @@ function Home() {
           </div>
           <div className="space-y-5 text-muted-foreground">
             <p>
-              Founded in 2017, Nithya Events has grown into one of the region's trusted and
+              Founded in 2017, NithyA EventS has grown into one of the region's trusted and
               sought-after names in wedding planning and event management. What began as a passion
               for beautiful celebrations became a team-driven journey of creativity and
               unforgettable experiences.
@@ -346,38 +342,12 @@ function Home() {
         </div>
       </section>
 
-      {/* What we create */}
-      <section id="what-we-create" className="border-y border-border bg-card/40 py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="text-center">
-            <p className="eyebrow">Your vision, our creativity</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              What <span className="text-primary">we create</span>
-            </h2>
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {creations.map((p, i) => (
-              <article
-                key={p.title}
-                className="group border border-border bg-background p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.2)]"
-              >
-                <p className="font-display text-4xl text-primary/40">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-4 text-2xl">{p.title}</h3>
-                <span className="gold-rule mt-4" />
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Why / Promise */}
       <section className="mx-auto max-w-7xl px-5 py-24">
         <div className="grid gap-14 lg:grid-cols-2">
           <div>
-            <p className="eyebrow">Why Nithya Events?</p>
+            <p className="eyebrow">Why NithyA EventS?</p>
             <h2 className="mt-4 text-3xl sm:text-4xl">
               Your event deserves more than a checklist. It deserves a{" "}
               <span className="text-primary">vision.</span>
@@ -488,6 +458,98 @@ function Home() {
         </div>
       </section>
 
+      {/* Reviews */}
+      <section id="reviews" className="border-t border-border bg-background py-24 scroll-mt-20">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="text-center">
+            <p className="eyebrow">Trusted by clients. Remembered for the experience.</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl uppercase">
+              What Our <span className="text-primary">Clients Say</span>
+            </h2>
+          </div>
+          
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* Review 1 */}
+            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
+                  M
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground">Mounika G</h3>
+                  <p className="text-xs text-muted-foreground">3 reviews</p>
+                </div>
+              </div>
+              <div className="mt-5 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
+                "Nithya events did a fantastic job organised the pm vishwakarma awareness program. The arrangements, stage setup and coordination were very professional."
+              </p>
+              <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
+            </article>
+
+            {/* Review 2 */}
+            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
+                  M
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground">M Narsimhachary</h3>
+                  <p className="text-xs text-muted-foreground">1 review</p>
+                </div>
+              </div>
+              <div className="mt-5 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
+                "The PM Vishwakarma program organised under MSME was executed excellently by Nithya events."
+              </p>
+              <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
+            </article>
+
+            {/* Review 3 */}
+            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
+                  S
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground">Shiva Balusula</h3>
+                  <p className="text-xs text-muted-foreground">2 reviews</p>
+                </div>
+              </div>
+              <div className="mt-5 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
+                "I recently had the pleasure of working with Nithya Events, and I must say, they exceeded all my expectations! The team's attention to detail, creativity, and professionalism are truly unmatched ..."
+              </p>
+              <p className="mt-6 text-xs text-muted-foreground">a year ago</p>
+            </article>
+          </div>
+
+          <div className="mt-16 flex justify-center">
+            <a
+              href="https://www.google.com/search?q=nithya+events&oq=nithya+events&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAYgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yBggFEEUYPDIGCAYQRRg8MgYIBxBFGD3SAQgyNTY3ajBqN6gCALACAA&sourceid=chrome&source=chrome.ob&ie=UTF-8"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View more reviews on Google"
+              className="btn-outline-gold inline-flex items-center justify-center"
+            >
+              VIEW MORE REVIEWS ON GOOGLE
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-7xl px-5 py-24 scroll-mt-20">
         <div className="grid gap-14 lg:grid-cols-2">
@@ -501,19 +563,26 @@ function Home() {
               <div>
                 <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Office</dt>
                 <dd className="mt-2 leading-relaxed text-muted-foreground">
-                  06-04-153/A1, Shivajinagar,
-                  <br />
-                  Karimnagar, Telangana 505001, India
+                  <a
+                    href="https://maps.app.goo.gl/diXFAcpov7S1f7Bp7"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Gandhi Rd, Islampura, Sai Nagar,
+                    <br />
+                    Karimnagar, Telangana 505001, India
+                  </a>
                 </dd>
               </div>
               <div>
                 <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Phone</dt>
                 <dd className="mt-2 flex flex-col gap-1 text-muted-foreground">
-                  <a href="tel:+919030119257" className="hover:text-primary">
-                    Nithyanand — 9030119257
+                  <a href="tel:9030119257" className="hover:text-primary">
+                    9030119257
                   </a>
-                  <a href="tel:+919030119256" className="hover:text-primary">
-                    Anil Patel — 9030119256
+                  <a href="tel:9030102663" className="hover:text-primary">
+                    9030102663
                   </a>
                 </dd>
               </div>
@@ -525,14 +594,37 @@ function Home() {
                   </a>
                 </dd>
               </div>
-              <div className="pt-2">
+              <div className="mt-8 rounded-md border border-border/60 bg-card/30 p-6 sm:p-8">
+                <p className="eyebrow mb-2">For Corporate Events</p>
+                <h3 className="text-xl sm:text-2xl mb-2 text-foreground">
+                  Need a professional event planned for your team?
+                </h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Reach out to our specialized corporate planning team for conferences, brand activations, and annual days.
+                </p>
+                <div className="mb-6">
+                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-primary mb-2">Corporate Email</p>
+                  <a href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you." className="text-foreground hover:text-primary transition-colors font-medium">
+                    Team.nithyaevents@gmail.com
+                  </a>
+                </div>
+                <a
+                  href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you."
+                  className="btn-outline-gold inline-flex items-center justify-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  EMAIL US FOR CORPORATE EVENTS
+                </a>
+              </div>
+
+              <div className="pt-8">
                 <dt className="text-[0.68rem] uppercase tracking-[0.2em] text-primary">Social</dt>
                 <dd className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
                   <a
                     href="https://www.instagram.com/nithyaevents.in?stkn=MWx1MmRjdmRib245bQ=="
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Visit Nithya Events on Instagram"
+                    aria-label="Visit NithyA EventS on Instagram"
                     className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   >
                     <Instagram className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
@@ -544,7 +636,7 @@ function Home() {
                     href="https://www.facebook.com/nithyaevents.in/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Visit Nithya Events on Facebook"
+                    aria-label="Visit NithyA EventS on Facebook"
                     className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   >
                     <Facebook className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
@@ -556,7 +648,7 @@ function Home() {
                     href="https://www.youtube.com/@nithyaevents8695"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Visit Nithya Events on YouTube"
+                    aria-label="Visit NithyA EventS on YouTube"
                     className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   >
                     <Youtube className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
@@ -566,7 +658,7 @@ function Home() {
                   </a>
                   <a
                     href="mailto:nithyaevents2017@gmail.com"
-                    aria-label="Email Nithya Events"
+                    aria-label="Email NithyA EventS"
                     className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   >
                     <Mail className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
@@ -584,27 +676,42 @@ function Home() {
               const formData = new FormData(e.currentTarget);
               const name = formData.get("name") as string;
               const phone = formData.get("phone") as string;
+              const email = formData.get("email") as string;
               const eventType = formData.get("eventType") as string;
               const eventDate = formData.get("eventDate") as string;
               const location = formData.get("location") as string;
+              const budget = formData.get("budget") as string;
+              const customBudget = formData.get("customBudget") as string;
               const message = formData.get("message") as string;
 
               const errors: Record<string, string> = {};
-              if (!name.trim()) errors.name = "Please enter your name.";
+              if (!name.trim()) errors.name = "Please enter your full name.";
 
               const phoneClean = phone.replace(/[\s-]/g, "");
-              if (!phoneClean) {
-                errors.phone = "Please enter your phone number.";
-              } else if (
-                !/^(?:\+?91)?[6-9]\d{9}$/.test(phoneClean) &&
-                !/^[6-9]\d{9}$/.test(phoneClean)
+              if (
+                !phoneClean ||
+                (!/^(?:\+?91)?[6-9]\d{9}$/.test(phoneClean) && !/^[6-9]\d{9}$/.test(phoneClean))
               ) {
-                errors.phone = "Please enter a valid 10-digit Indian phone number.";
+                errors.phone = "Please enter a valid phone number.";
+              }
+
+              if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errors.email = "Please enter a valid email address.";
               }
 
               if (!eventType) errors.eventType = "Please select an event type.";
-              if (!eventDate) errors.eventDate = "Please select an event date.";
-              if (!location.trim()) errors.location = "Please enter the event location.";
+              if (!eventDate) errors.eventDate = "Please select your event date.";
+
+              let finalBudget = budget;
+              if (budget === "Enter custom budget") {
+                if (!customBudget || !customBudget.replace(/\D/g, "")) {
+                  errors.customBudget = "Please enter your estimated budget.";
+                } else {
+                  finalBudget = `${customBudget} (Custom Budget)`;
+                }
+              } else if (!budget) {
+                errors.budget = "Please select your estimated budget.";
+              }
 
               if (Object.keys(errors).length > 0) {
                 setFormErrors(errors);
@@ -619,25 +726,28 @@ function Home() {
                   ? phoneClean.substring(2)
                   : phoneClean;
 
-              const text = `Hello Nithya Events,
+              const text = `Hello NithyA EventS,
 
-I would like to enquire about an event.
+New Event Enquiry
 
-━━━━━━━━━━━━━━━━
-EVENT ENQUIRY
-━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━
 
 Name: ${name}
 Phone: ${normalizedPhone}
-Event Type: ${eventType}
-Event Date: ${eventDate}
-Event Location: ${location}
+Email: ${email || "Not provided"}
+
+Event Type: ${eventType || "Not specified"}
+Event Date: ${eventDate || "Not specified"}
+Event Location: ${location || "Not specified"}
+
+Budget: ${finalBudget || "Not specified"}
 
 Message:
 ${message || "No message provided."}
 
-Thank you.
-I look forward to hearing from you.`;
+━━━━━━━━━━━━━━━━━━
+
+This enquiry was submitted through the NithyA EventS website.`;
 
               const url = `https://wa.me/9030119257?text=${encodeURIComponent(text)}`;
 
@@ -685,6 +795,25 @@ I look forward to hearing from you.`;
                 />
                 {formErrors.phone && (
                   <p className="text-[0.68rem] text-red-400">{formErrors.phone}</p>
+                )}
+              </div>
+
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="email"
+                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
+                >
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
+                />
+                {formErrors.email && (
+                  <p className="text-[0.68rem] text-red-400">{formErrors.email}</p>
                 )}
               </div>
 
@@ -756,6 +885,58 @@ I look forward to hearing from you.`;
 
               <div className="space-y-1.5">
                 <label
+                  htmlFor="budget"
+                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
+                >
+                  Budget
+                </label>
+                <select
+                  id="budget"
+                  name="budget"
+                  defaultValue=""
+                  onChange={(e) => {
+                    setShowCustomBudget(e.target.value === "Enter custom budget");
+                    if (e.target.value !== "Enter custom budget") {
+                      setCustomBudgetValue("");
+                    }
+                  }}
+                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors text-foreground appearance-none"
+                >
+                  <option value="" disabled>
+                    Select your estimated budget
+                  </option>
+                  <option value="Below ₹1 Lakh">Below ₹1 Lakh</option>
+                  <option value="₹1 Lakh – ₹3 Lakhs">₹1 Lakh – ₹3 Lakhs</option>
+                  <option value="₹3 Lakhs – ₹5 Lakhs">₹3 Lakhs – ₹5 Lakhs</option>
+                  <option value="₹5 Lakhs – ₹10 Lakhs">₹5 Lakhs – ₹10 Lakhs</option>
+                  <option value="₹10 Lakhs+">₹10 Lakhs+</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                  <option value="Enter custom budget">Enter custom budget</option>
+                </select>
+                {formErrors.budget && (
+                  <p className="text-[0.68rem] text-red-400">{formErrors.budget}</p>
+                )}
+              </div>
+
+              {showCustomBudget && (
+                <div className="space-y-1.5 transition-all duration-300">
+                  <input
+                    id="customBudget"
+                    name="customBudget"
+                    type="text"
+                    value={customBudgetValue}
+                    onChange={(e) => setCustomBudgetValue(formatCustomBudget(e.target.value))}
+                    placeholder="Enter your budget amount"
+                    className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
+                  />
+                  {formErrors.customBudget && (
+                    <p className="text-[0.68rem] text-red-400">{formErrors.customBudget}</p>
+                  )}
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label
                   htmlFor="message"
                   className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
                 >
@@ -797,8 +978,8 @@ I look forward to hearing from you.`;
         {/* Google Maps Embed */}
         <div className="mt-16 h-[400px] w-full overflow-hidden border border-border bg-card">
           <iframe
-            title="Nithya Events Location"
-            src="https://maps.google.com/maps?q=18.451142,79.137245&t=&z=19&ie=UTF8&iwloc=&output=embed"
+            title="NithyA EventS Location"
+            src="https://maps.google.com/maps?q=18.439679,79.1373094+(NithyA%20EventS)&t=&z=19&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -813,11 +994,11 @@ I look forward to hearing from you.`;
       <footer className="border-t border-border py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 sm:flex-row">
           <div className="flex flex-col items-center sm:items-start gap-2">
-            <img src={logoImg} alt="Nithya Events Logo" className="h-12 w-auto object-contain" />
+            <img src={logoImg} alt="NithyA EventS Logo" className="h-12 w-auto object-contain" />
             <p className="text-xs text-muted-foreground">We celebrate your dreams</p>
           </div>
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Nithya Events, Karimnagar. All rights reserved.
+            © {new Date().getFullYear()} NithyA EventS, Karimnagar. All rights reserved.
           </p>
           <a href="#top" className="text-xs uppercase tracking-[0.2em] text-primary">
             Back to top

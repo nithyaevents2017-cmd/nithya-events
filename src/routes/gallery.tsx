@@ -8,11 +8,11 @@ import { sanityClient, urlFor, SanityGalleryImage } from "@/lib/sanity";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Nithya Events | Gallery" },
+      { title: "NithyA EventS | Gallery" },
       {
         name: "description",
         content:
-          "A curated glimpse into celebrations, experiences and unforgettable moments crafted by Nithya Events.",
+          "A curated glimpse into celebrations, experiences and unforgettable moments crafted by NithyA EventS.",
       },
     ],
   }),
@@ -22,8 +22,9 @@ export const Route = createFileRoute("/gallery")({
 const nav = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/#services" },
-  { label: "Services", href: "/#what-we-create" },
+  { label: "Services", href: "/services" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -85,7 +86,7 @@ function GalleryPage() {
             <a href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
               <img
                 src={logoImg}
-                alt="Nithya Events Logo"
+                alt="NithyA EventS Logo"
                 className="h-12 w-auto object-contain drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]"
               />
             </a>
@@ -93,7 +94,7 @@ function GalleryPage() {
 
           <nav className="hidden lg:flex items-center justify-center gap-8">
             {nav.map((item) => {
-              if (item.href.startsWith("/#")) {
+              if (item.href.startsWith("/#") || item.href.startsWith("mailto:")) {
                 return (
                   <a
                     key={item.label}
@@ -109,9 +110,8 @@ function GalleryPage() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className={`group relative text-[0.72rem] uppercase tracking-[0.18em] transition-colors hover:text-primary py-2 ${
-                    item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
-                  }`}
+                  className={`group relative text-[0.72rem] uppercase tracking-[0.18em] transition-colors hover:text-primary py-2 ${item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
+                    }`}
                 >
                   {item.label}
                   <span
@@ -142,17 +142,16 @@ function GalleryPage() {
         {menuOpen && (
           <nav className="flex flex-col border-t border-border bg-background px-5 py-4 lg:hidden">
             {nav.map((item) => {
-              if (item.href.startsWith("/#")) {
+              if (item.href.startsWith("/#") || item.href.startsWith("mailto:")) {
                 return (
                   <a
                     key={item.label}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`py-3 text-xs uppercase tracking-[0.2em] ${
-                      item.label === "Gallery"
+                    className={`py-3 text-xs uppercase tracking-[0.2em] ${item.label === "Gallery"
                         ? "text-primary font-medium"
                         : "text-muted-foreground"
-                    }`}
+                      }`}
                   >
                     {item.label}
                   </a>
@@ -163,9 +162,8 @@ function GalleryPage() {
                   key={item.label}
                   to={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`py-3 text-xs uppercase tracking-[0.2em] [&.active]:text-primary ${
-                    item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
-                  }`}
+                  className={`py-3 text-xs uppercase tracking-[0.2em] [&.active]:text-primary ${item.label === "Gallery" ? "text-primary font-medium" : "text-muted-foreground"
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -192,7 +190,7 @@ function GalleryPage() {
           <span className="gold-rule mt-6 mx-auto" />
           <p className="mx-auto mt-6 max-w-2xl text-sm md:text-base text-muted-foreground">
             A curated glimpse into celebrations, experiences and unforgettable moments crafted by
-            Nithya Events.
+            NithyA EventS.
           </p>
         </div>
 
@@ -217,7 +215,7 @@ function GalleryPage() {
                 >
                   <img
                     src={src}
-                    alt="Event celebration by Nithya Events"
+                    alt="Event celebration by NithyA EventS"
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -265,7 +263,7 @@ function GalleryPage() {
               <img
                 key={images[selectedIndex]._id}
                 src={urlFor(images[selectedIndex].image).width(1600).url()}
-                alt="Event celebration by Nithya Events"
+                alt="Event celebration by NithyA EventS"
                 className="max-h-[85vh] max-w-[85vw] object-contain animate-in fade-in zoom-in-95 duration-300 shadow-2xl"
               />
 
@@ -292,11 +290,11 @@ function GalleryPage() {
       <footer className="border-t border-border py-10 mt-auto">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 sm:flex-row">
           <div className="flex flex-col items-center sm:items-start gap-2">
-            <img src={logoImg} alt="Nithya Events Logo" className="h-12 w-auto object-contain" />
+            <img src={logoImg} alt="NithyA EventS Logo" className="h-12 w-auto object-contain" />
             <p className="text-xs text-muted-foreground">We celebrate your dreams</p>
           </div>
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Nithya Events, Karimnagar. All rights reserved.
+            © {new Date().getFullYear()} NithyA EventS, Karimnagar. All rights reserved.
           </p>
           <a href="#top" className="text-xs uppercase tracking-[0.2em] text-primary">
             Back to top

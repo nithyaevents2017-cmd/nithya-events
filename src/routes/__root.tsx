@@ -77,18 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nithya Events | Event Management & Wedding Planning" },
+      { title: "NithyA EventS | Event Management & Wedding Planning" },
       {
         name: "description",
         content:
-          "Nithya Events creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
+          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
       },
-      { name: "author", content: "Nithya Events" },
-      { property: "og:title", content: "Nithya Events | Event Management & Wedding Planning" },
+      { name: "author", content: "NithyA EventS" },
+      { property: "og:title", content: "NithyA EventS | Event Management & Wedding Planning" },
       {
         property: "og:description",
         content:
-          "Nithya Events creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
+          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

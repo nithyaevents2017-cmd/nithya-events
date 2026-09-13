@@ -4,7 +4,7 @@ import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
   name: "default",
-  title: "Nithya Events",
+  title: "NithyA EventS",
 
   projectId: "479tsopf",
   dataset: "production",
