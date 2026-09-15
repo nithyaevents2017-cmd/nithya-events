@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { FloatingContact } from "../components/FloatingContact";
+import { SITE_URL } from "../config";
 
 function NotFoundComponent() {
   return (
@@ -77,25 +78,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NithyA EventS | Event Management & Wedding Planning" },
+      { title: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
       {
         name: "description",
         content:
-          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
+          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events in Karimnagar with creative planning and professional execution.",
       },
       { name: "author", content: "NithyA EventS" },
-      { property: "og:title", content: "NithyA EventS | Event Management & Wedding Planning" },
-      {
-        property: "og:description",
+      { property: "og:title", content: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
+      { property: "og:description",
         content:
-          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events with creative planning and professional execution.",
+          "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events in Karimnagar with creative planning and professional execution.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: `${SITE_URL}/favicon.png` },
+      { property: "og:site_name", content: "NithyA EventS" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@NithyaEvents" },
+      { name: "twitter:title", content: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
+      { name: "twitter:description", content: "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events in Karimnagar with creative planning and professional execution." },
+      { name: "twitter:image", content: `${SITE_URL}/favicon.png` },
+      { name: "theme-color", content: "#ffffff" },
     ],
     links: [
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
       {
         rel: "stylesheet",
         href: appCss,
@@ -115,10 +123,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "NithyA EventS",
+    "image": `${SITE_URL}/favicon.png`,
+    "@id": SITE_URL,
+    "url": SITE_URL,
+    "telephone": "+919030119257",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "MJS Business Centre, 2nd floor, Gandhi Rd, Islampura, Sai Nagar",
+      "addressLocality": "Karimnagar",
+      "addressRegion": "Telangana",
+      "postalCode": "505001",
+      "addressCountry": "IN"
+    }
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </head>
       <body className="overflow-x-hidden w-full">
         {children}

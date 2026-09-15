@@ -3,17 +3,21 @@ import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
 import { sanityClient, urlFor, SanityGalleryImage } from "@/lib/sanity";
+import { SITE_URL } from "@/config";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Gallery | NithyA EventS" },
+      { title: "Event Decoration & Wedding Gallery in Karimnagar | NithyA EventS" },
       {
         name: "description",
         content:
-          "A curated glimpse into celebrations, experiences and unforgettable moments crafted by NithyA EventS.",
+          "A curated glimpse into our portfolio of beautiful weddings, corporate events, stage decorations, and unforgettable moments crafted by NithyA EventS in Karimnagar.",
       },
     ],
+    links: [
+      { rel: "canonical", href: `${SITE_URL}/gallery` }
+    ]
   }),
   component: GalleryPage,
 });
@@ -105,8 +109,10 @@ function GalleryPage() {
                 >
                   <img
                     src={src}
-                    alt="Event celebration by NithyA EventS"
+                    alt={`Event celebration and decoration by NithyA EventS - Image ${i + 1}`}
                     loading="lazy"
+                    width="800"
+                    height="800"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)]/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

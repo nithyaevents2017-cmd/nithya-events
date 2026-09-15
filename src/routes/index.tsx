@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { GallerySkeleton } from "../components/GallerySkeleton";
+import { ContactForm } from "../components/ContactForm";
+import { SITE_URL } from "../config";
 import heroImg from "@/assets/main-theme.jpeg";
 import expConference from "@/assets/exp-conference.jpg";
 import expWedding from "@/assets/exp-wedding.jpg";
@@ -13,9 +16,13 @@ import { ArrowRight, Play, Users, Calendar, Star, Heart, CheckCircle2, MapPin, P
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NithyA EventS | We Celebrate Your Dreams" },
-      { name: "description", content: "NithyA EventS. Since 2017 we plan weddings, corporate events, and private celebrations." },
+      { title: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
+      { name: "description", content: "NithyA EventS plans and executes beautiful weddings, corporate events, cultural programs and private celebrations in Karimnagar." },
     ],
+    links: [
+      { rel: "canonical", href: `${SITE_URL}/` },
+      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" }
+    ]
   }),
   component: Home,
 });
@@ -198,6 +205,8 @@ function Home() {
               <img
                 src={heroImg}
                 alt="Luxury Wedding Setup"
+                fetchPriority="high"
+                loading="eager"
                 className="w-full h-full object-cover object-[center_30%] lg:object-[35%_center] scale-[1.02] hover:scale-[1.05] transition-transform duration-[3s]"
               />
               {/* Soft gradient overlay at bottom on mobile */}
@@ -294,7 +303,10 @@ function Home() {
             <div className="absolute right-0 lg:right-[-40px] top-0 bottom-0 w-full lg:w-[110%] overflow-hidden rounded-t-[40%] lg:rounded-t-none lg:rounded-l-[50%] z-0">
               <img
                 src={expTeam}
-                alt="NithyA Events Team"
+                alt="NithyA Events Team - Event Planners in Karimnagar"
+                loading="lazy"
+                width="800"
+                height="1000"
                 className="w-full h-full object-cover object-[center_35%] lg:object-[40%_center]"
               />
             </div>
@@ -433,7 +445,10 @@ function Home() {
               <div className="p-2 relative">
                 <img
                   src={item.img}
-                  alt={item.title}
+                  alt={`NithyA EventS - ${item.title} services in Karimnagar`}
+                  loading="lazy"
+                  width="400"
+                  height="220"
                   className="w-full h-[220px] object-cover rounded-t-[16px] rounded-b-[4px]"
                 />
                 {/* Botanical leaf overlay on image bottom-left */}
@@ -603,8 +618,7 @@ function Home() {
           "YOUR CELEBRATION MATTERS — Ready to Plan Your Dream Event?"
       ══════════════════════════════════════════════ */}
       <section className="relative h-[440px] overflow-hidden">
-        {/* Background image */}
-        <img src={expWedding} alt="Dream Event" className="absolute inset-0 w-full h-full object-cover object-center brightness-75" />
+        <img src={expWedding} alt="Dream Event Planning and Execution" loading="lazy" width="1400" height="440" className="absolute inset-0 w-full h-full object-cover object-center brightness-75" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-black/10 pointer-events-none" />
 
         {/* Left burgundy swoosh */}
@@ -647,7 +661,7 @@ function Home() {
         {/* Right edge arched image + badge */}
         <div className="absolute right-[-80px] top-[5%] w-[340px] h-[750px] z-0 hidden xl:block pointer-events-none">
           <div className="w-full h-full overflow-hidden rounded-l-full">
-            <img src={expWedding} alt="Celebration Decor" className="w-full h-full object-cover opacity-85" />
+            <img src={expWedding} alt="Beautiful Wedding Celebration Decor" loading="lazy" width="400" height="750" className="w-full h-full object-cover opacity-85" />
           </div>
           {/* "Let's CREATE SOMETHING Beautiful" badge */}
           <div className="absolute top-[18%] left-[-90px] w-52 h-52 bg-white/95 rounded-full shadow-xl flex flex-col items-center justify-center text-center border border-[var(--color-accent)]/25">
@@ -768,23 +782,23 @@ function Home() {
             </h3>
             <form className="space-y-4">
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">FULL NAME</label>
-                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your full name" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                <label htmlFor="contact-name" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">FULL NAME</label>
+                <input id="contact-name" type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your full name" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">PHONE NUMBER</label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter your phone number" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                <label htmlFor="contact-phone" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">PHONE NUMBER</label>
+                <input id="contact-phone" type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter your phone number" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
               </div>
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EMAIL ADDRESS</label>
-                <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                <label htmlFor="contact-email" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EMAIL ADDRESS</label>
+                <input id="contact-email" type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT TYPE</label>
-                  <select name="eventType" value={formData.eventType} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
+                  <label htmlFor="contact-event-type" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT TYPE</label>
+                  <select id="contact-event-type" name="eventType" value={formData.eventType} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
                     <option>Select event type</option>
                     <option>Wedding</option>
                     <option>Corporate Event</option>
@@ -794,17 +808,17 @@ function Home() {
                   </select>
                 </div>
                 <div>
-                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT DATE</label>
-                  <input type="date" name="eventDate" value={formData.eventDate} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                  <label htmlFor="contact-event-date" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT DATE</label>
+                  <input id="contact-event-date" type="date" name="eventDate" value={formData.eventDate} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
                 </div>
               </div>
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT LOCATION</label>
-                <input type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="Enter event location" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                <label htmlFor="contact-location" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT LOCATION</label>
+                <input id="contact-location" type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="Enter event location" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
               </div>
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">BUDGET</label>
-                <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
+                <label htmlFor="contact-budget" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">BUDGET</label>
+                <select id="contact-budget" name="budget" value={formData.budget} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
                   <option>Select your estimated budget</option>
                   <option>Less than ₹1,00,000</option>
                   <option>₹1,00,000 - ₹5,00,000</option>
@@ -816,15 +830,15 @@ function Home() {
               
               {formData.budget === 'Custom Budget' && (
                 <div>
-                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">CUSTOM BUDGET</label>
-                  <input type="text" name="customBudget" value={formData.customBudget} onChange={handleInputChange} placeholder="Enter your custom budget" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                  <label htmlFor="contact-custom-budget" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">CUSTOM BUDGET</label>
+                  <input id="contact-custom-budget" type="text" name="customBudget" value={formData.customBudget} onChange={handleInputChange} placeholder="Enter your custom budget" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
                   {errors.customBudget && <p className="text-red-500 text-xs mt-1">{errors.customBudget}</p>}
                 </div>
               )}
 
               <div>
-                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">MESSAGE</label>
-                <textarea name="message" value={formData.message} onChange={handleInputChange} rows={3} placeholder="Tell us about your event" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors resize-none"></textarea>
+                <label htmlFor="contact-message" className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">MESSAGE</label>
+                <textarea id="contact-message" name="message" value={formData.message} onChange={handleInputChange} rows={3} placeholder="Tell us about your event" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors resize-none"></textarea>
               </div>
               <button type="button" onClick={handleWhatsAppSubmit} className="btn-primary w-full py-4 text-[0.8rem] mt-2 group">
                 <svg className="w-4 h-4 fill-white mr-2" viewBox="0 0 24 24"><path d="M12.031 0C5.38 0 0 5.381 0 12.032c0 2.12.548 4.186 1.59 6.002L.007 24l6.113-1.603A11.968 11.968 0 0 0 12.031 24c6.649 0 12.03-5.38 12.03-12.032C24.062 5.38 18.681 0 12.031 0Zm6.602 17.378c-.28.788-1.637 1.488-2.317 1.547-.648.058-1.464.246-4.664-1.074-3.844-1.586-6.273-5.46-6.467-5.719-.193-.26-1.547-2.05-1.547-3.914 0-1.865.976-2.775 1.32-3.146.335-.359.73-.448.971-.448.24 0 .48.002.695.01.233.01.546-.088.855.65.328.784 1.053 2.569 1.144 2.753.091.185.152.4.03.606-.12.206-.182.336-.364.545-.181.208-.382.45-.544.622-.182.193-.377.406-.164.767.213.359.945 1.554 2.034 2.525 1.403 1.25 2.57 1.637 2.934 1.815.364.179.576.152.793-.09.217-.243.93-1.084 1.18-1.455.25-.371.498-.31.834-.185.337.126 2.128 1.002 2.49 1.18.363.18.607.27.695.422.088.152.088.887-.193 1.674Z"/></svg>

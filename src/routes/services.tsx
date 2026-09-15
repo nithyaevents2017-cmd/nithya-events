@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ServiceCard } from "../components/ServiceCard";
+import { SITE_URL } from "../config";
 import { ArrowRight } from "lucide-react";
 
 import foodImg from "../../services/food.jpeg";
@@ -20,9 +22,12 @@ import beauticianImg from "../../services/beautician_makeup.jpg";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services | NithyA EventS" },
-      { name: "description", content: "Discover the comprehensive event services offered by NithyA EventS." },
+      { title: "Event Services in Karimnagar | NithyA EventS" },
+      { name: "description", content: "Professional event services in Karimnagar including catering, decoration, photography, DJ, and complete event management by NithyA EventS." },
     ],
+    links: [
+      { rel: "canonical", href: `${SITE_URL}/services` }
+    ]
   }),
   component: ServicesPage,
 });
@@ -61,8 +66,27 @@ const servicesList = [
 ];
 
 function ServicesPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": servicesList.map((service, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.description,
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "NithyA EventS"
+        }
+      }
+    }))
+  };
+
   return (
     <div id="top" className="min-h-screen bg-botanical relative overflow-hidden pt-32 pb-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <main className="mx-auto max-w-[1400px] px-6 relative z-10">
         {/* Header */}
@@ -94,7 +118,10 @@ function ServicesPage() {
               <div className="p-2 relative">
                 <img
                   src={item.img}
-                  alt={item.title}
+                  alt={`NithyA EventS - ${item.title} services in Karimnagar`}
+                  loading="lazy"
+                  width="400"
+                  height="220"
                   className="w-full h-[220px] object-cover rounded-t-[16px] rounded-b-[4px]"
                 />
                 {/* Leaf on image bottom-left */}
