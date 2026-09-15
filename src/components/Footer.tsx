@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
           
           <div className="flex flex-col items-center md:items-start gap-1">
-            <img src={logoImg} alt="NithyA EventS Logo" className="h-16 w-auto object-contain brightness-0 invert" />
+            <img src={logoImg} alt="NithyA EventS Logo" className="h-16 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] invert hue-rotate-180" />
             <p className="script-text text-white/80 text-xl tracking-wide">We celebrate your dreams</p>
           </div>
 
@@ -18,7 +18,7 @@ export function Footer() {
               <a
                 key={link}
                 href={link === "SERVICES" || link === "GALLERY" ? `/${link.toLowerCase()}` : `/#${link.toLowerCase()}`}
-                className="text-[0.75rem] font-medium tracking-[0.2em] uppercase text-white/70 hover:text-[var(--color-accent)] transition-colors"
+                className="text-[0.85rem] font-semibold tracking-[0.2em] uppercase text-white/80 hover:text-[var(--color-accent)] transition-colors"
               >
                 {link}
               </a>

@@ -17,7 +17,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-accent)]/20 bg-background/95 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)] transition-all duration-300">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 lg:grid-cols-3 items-center px-5 py-4">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center px-5 py-4">
         <div className="flex justify-start">
           <a href="/#top" className="flex items-center gap-2 transition-opacity hover:opacity-80">
             <img
@@ -31,7 +31,7 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center justify-center gap-7">
           {nav.map((item) => {
             const isHash = item.href.startsWith("/#") || item.href.startsWith("mailto:");
-            const linkClass = "group relative text-[0.85rem] font-medium uppercase tracking-[0.15em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-main)] [&.active]:text-[var(--color-primary)] py-2";
+            const linkClass = "group relative text-[0.9rem] font-semibold uppercase tracking-[0.15em] text-black transition-colors hover:text-black/80 [&.active]:text-[var(--color-primary)] py-2";
             const underline = <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[var(--color-primary)] transition-all duration-300 ease-out group-hover:w-full group-[.active]:w-full" />;
             
             if (isHash) {
@@ -72,7 +72,7 @@ export function Navbar() {
         <nav className="flex flex-col border-t border-[var(--color-accent)]/20 bg-background px-5 py-4 lg:hidden shadow-lg">
           {nav.map((item) => {
             const isHash = item.href.startsWith("/#") || item.href.startsWith("mailto:");
-            const linkClass = "py-3 text-[0.85rem] font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)] [&.active]:text-[var(--color-primary)]";
+            const linkClass = "py-3 text-[0.85rem] font-medium uppercase tracking-[0.2em] text-black [&.active]:text-[var(--color-primary)]";
             if (isHash) {
               return (
                 <a
