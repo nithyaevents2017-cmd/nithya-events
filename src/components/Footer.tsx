@@ -26,13 +26,13 @@ export function Footer() {
           </nav>
 
           <div className="flex items-center gap-6">
-            <a href="#" aria-label="Visit our Instagram" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
+            <a href="https://www.instagram.com/nithyaevents.in/" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on Instagram" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
                <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" aria-label="Visit our Facebook" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
+            <a href="https://www.facebook.com/nithyaevents.in/" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on Facebook" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
                <Facebook className="w-5 h-5" />
             </a>
-            <a href="#" aria-label="Visit our YouTube" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
+            <a href="https://www.youtube.com/@nithyaevents8695" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on YouTube" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">
                <Youtube className="w-5 h-5" />
             </a>
             <a href="mailto:nithyaevents2017@gmail.com" aria-label="Email NithyA EventS" className="text-white/70 hover:text-[var(--color-accent)] transition-colors">

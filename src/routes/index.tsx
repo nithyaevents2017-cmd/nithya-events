@@ -893,19 +893,19 @@ function Home() {
               Follow our journey, see our latest events, and stay connected with NithyA Events on social media.
             </p>
             <div className="grid grid-cols-2 gap-4">
-              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+              <a href="https://www.instagram.com/nithyaevents.in/" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on Instagram" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
                 <Instagram className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Instagram</span>
               </a>
-              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+              <a href="https://www.facebook.com/nithyaevents.in/" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on Facebook" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
                 <Facebook className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Facebook</span>
               </a>
-              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+              <a href="https://www.youtube.com/@nithyaevents8695" target="_blank" rel="noopener noreferrer" aria-label="Visit NithyA EventS on YouTube" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
                 <Youtube className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">YouTube</span>
               </a>
-              <a href="mailto:nithyaevents2017@gmail.com" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+              <a href="mailto:nithyaevents2017@gmail.com" aria-label="Email NithyA EventS" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
                 <Mail className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
                 <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Email</span>
               </a>
