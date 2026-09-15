@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..700&family=Jost:wght@300;400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..800;1,400..700&display=swap",
       },
     ],
   }),
@@ -120,7 +120,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="overflow-x-hidden w-full">
         {children}
         <Scripts />
       </body>
@@ -129,6 +129,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -138,6 +139,7 @@ function RootComponent() {
       <Navbar />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <Footer />
       <FloatingContact />
     </QueryClientProvider>
   );

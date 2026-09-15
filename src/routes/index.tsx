@@ -1,942 +1,905 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import heroImg from "@/assets/nithya-custom-hero.jpg";
+import heroImg from "@/assets/main-theme.jpeg";
 import expConference from "@/assets/exp-conference.jpg";
 import expWedding from "@/assets/exp-wedding.jpg";
-import expTeam from "@/assets/exp-team.jpg";
+import expTeam from "@/assets/about-us.jpeg";
 import expFilm from "@/assets/exp-film.jpg";
 import expCultural from "@/assets/exp-cultural.jpg";
-import logoImg from "@/assets/logo.png";
 import familyEventImg from "../../logo/family event.jpeg";
 import privatePartyImg from "../../logo/private party.jpeg";
-import { nithyaImages } from "@/lib/images";
-import { Instagram, Facebook, Youtube, Mail, Star } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-
-// Filter out exactly the valid corporate logos based on our visual audit
-const validClientIndices = [
-  11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-];
-const clientLogos = nithyaImages.gallery.filter((img: string) =>
-  validClientIndices.some((idx) => new RegExp(`nithya_img_${idx}[\\.-]`).test(img)),
-);
+import { ArrowRight, Play, Users, Calendar, Star, Heart, CheckCircle2, MapPin, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NithyA EventS | We Celebrate Your Dreams — Karimnagar" },
-      {
-        name: "description",
-        content:
-          "NithyA EventS, Karimnagar. Since 2017 we plan weddings, corporate events, cultural programmes and private celebrations. 1000+ events across 50+ locations.",
-      },
-      {
-        property: "og:title",
-        content: "NithyA EventS | We Celebrate Your Dreams",
-      },
-      {
-        property: "og:description",
-        content:
-          "Wedding planning and event management from Karimnagar, Telangana. Call 9030119257.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "NithyA EventS | We Celebrate Your Dreams" },
+      { name: "description", content: "NithyA EventS. Since 2017 we plan weddings, corporate events, and private celebrations." },
     ],
   }),
   component: Home,
 });
 
-
+/* ─── Reusable SVG leaf decoration ───────────────────────────── */
+function LeafDecor({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 200" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60,190 C60,190 10,140 10,90 C10,40 60,10 60,10 C60,10 110,40 110,90 C110,140 60,190 60,190 Z" stroke="#C99A4A" strokeWidth="1" fill="none" opacity="0.35"/>
+      <line x1="60" y1="10" x2="60" y2="190" stroke="#C99A4A" strokeWidth="0.8" opacity="0.3"/>
+      <line x1="60" y1="50" x2="30" y2="80" stroke="#C99A4A" strokeWidth="0.6" opacity="0.25"/>
+      <line x1="60" y1="50" x2="90" y2="80" stroke="#C99A4A" strokeWidth="0.6" opacity="0.25"/>
+      <line x1="60" y1="80" x2="20" y2="110" stroke="#C99A4A" strokeWidth="0.6" opacity="0.25"/>
+      <line x1="60" y1="80" x2="100" y2="110" stroke="#C99A4A" strokeWidth="0.6" opacity="0.25"/>
+      <line x1="60" y1="110" x2="30" y2="140" stroke="#C99A4A" strokeWidth="0.6" opacity="0.2"/>
+      <line x1="60" y1="110" x2="90" y2="140" stroke="#C99A4A" strokeWidth="0.6" opacity="0.2"/>
+    </svg>
+  );
+}
 
 const services = [
-  {
-    title: "Weddings",
-    img: expWedding,
-    body: "Intimate and grand destination weddings.",
-  },
-  {
-    title: "Corporate Events",
-    img: expConference,
-    body: "Conferences, launches, annual days, award nights and brand activations.",
-  },
-  {
-    title: "Cultural Events",
-    img: expCultural,
-    body: "Festivals, stage shows, dance and music programmes of every scale.",
-  },
-  {
-    title: "Film & Political Events",
-    img: expFilm,
-    body: "Audio launches, press meets, public meetings and large-scale rallies.",
-  },
-  {
-    title: "Family Events",
-    img: familyEventImg,
-    body: "Weddings, engagements, naming ceremonies, birthdays and anniversaries.",
-  },
-  {
-    title: "Private Parties",
-    img: privatePartyImg,
-    body: "Birthdays, anniversaries, and milestones.",
-  },
+  { title: "Weddings", img: expWedding, body: "Intimate and grand destination weddings." },
+  { title: "Corporate Events", img: expConference, body: "Conferences, launches, annual days, award nights and brand activations." },
+  { title: "Cultural Events", img: expCultural, body: "Festivals, stage shows, dance and music programmes of every scale." },
+  { title: "Film & Political Events", img: expFilm, body: "Audio launches, press meets, public meetings and large-scale rallies." },
+  { title: "Family Events", img: familyEventImg, body: "Weddings, engagements, naming ceremonies, birthdays and anniversaries." },
+  { title: "Private Parties", img: privatePartyImg, body: "Birthdays, anniversaries, and milestones." },
 ];
-
-const stats = [
-  { value: "1000+", label: "Events" },
-  { value: "50+", label: "Locations" },
-  { value: "100%", label: "Satisfaction" },
-];
-
-const whyPoints = [
-  "We listen before we create.",
-  "We plan before we execute.",
-  "We focus on details others overlook.",
-  "We anticipate problems before they arrive.",
-  "We stay committed until the very last moment.",
-];
-
-const team = [
-  {
-    name: "Nithyanand Macha",
-    role: "Managing Director",
-    body: "Namaste! I'm Nithyanand, MD of NithyA EventS — here, we celebrate your dreams. My skilled team of experienced event professionals makes your celebration a special one you'll remember for life.",
-    img: expTeam,
-  },
-  {
-    name: "Anil Patel",
-    role: "Event Management & Execution",
-    body: "Hi, I'm Anil. I take care of the worries that come with the work and keep every situation running smoothly, so each event we design and execute is flawless and memorable.",
-    img: expTeam,
-  },
-];
-
-const formatCustomBudget = (val: string) => {
-  const num = val.replace(/\D/g, "");
-  if (!num) return "";
-  const formatted = new Intl.NumberFormat("en-IN").format(Number(num));
-  return `₹${formatted}`;
-};
 
 function Home() {
-  const [sent, setSent] = useState(false);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [showCustomBudget, setShowCustomBudget] = useState(false);
-  const [customBudgetValue, setCustomBudgetValue] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    eventType: "Select event type",
+    eventDate: "",
+    location: "",
+    budget: "Select your estimated budget",
+    customBudget: "",
+    message: ""
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => {
+      const newData = { ...prev, [name]: value };
+      if (name === 'budget' && value !== 'Custom Budget') {
+        newData.customBudget = '';
+      }
+      return newData;
+    });
+    
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: "" }));
+    }
+    if (name === 'budget' && value !== 'Custom Budget' && errors.customBudget) {
+       setErrors(prev => ({ ...prev, customBudget: "" }));
+    }
+  };
+
+  const handleWhatsAppSubmit = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Please enter your full name.";
+    if (!formData.phone.trim()) newErrors.phone = "Please enter your phone number.";
+    if (formData.budget === 'Custom Budget' && !formData.customBudget.trim()) {
+      newErrors.customBudget = "Please enter your custom budget.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    let messageText = `Hello NithyA EventS,\n\nI would like to enquire about planning an event.\n\n*Event Enquiry Details*\nName: ${formData.name}\nPhone: ${formData.phone}\n`;
+    
+    if (formData.email) messageText += `Email: ${formData.email}\n`;
+    messageText += `\n`;
+    
+    if (formData.eventType && formData.eventType !== "Select event type") messageText += `Event Type: ${formData.eventType}\n`;
+    if (formData.eventDate) messageText += `Event Date: ${formData.eventDate}\n`;
+    if (formData.location) messageText += `Venue: ${formData.location}\n`;
+    
+    if (formData.eventType !== "Select event type" || formData.eventDate || formData.location) messageText += `\n`;
+
+    if (formData.budget && formData.budget !== "Select your estimated budget") {
+      if (formData.budget === 'Custom Budget') {
+        messageText += `Budget: Custom Budget\n`;
+        messageText += `Custom Budget: ${formData.customBudget}\n`;
+      } else {
+        messageText += `Budget: ${formData.budget}\n`;
+      }
+      messageText += `\n`;
+    }
+
+    if (formData.message) {
+      messageText += `Message:\n${formData.message}\n\n`;
+    }
+
+    messageText += `Thank you.\nNithyA EventS`;
+
+    const encodedMessage = encodeURIComponent(messageText);
+    const whatsappNumber = "919030119257"; 
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
-    <div id="top" className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="relative flex min-h-[92vh] items-center justify-center overflow-hidden">
-        <img
-          src={heroImg}
-          alt="Grand event stage lit in gold with a full audience"
-          width={1920}
-          height={1088}
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/60 to-background" />
-        <div className="relative mx-auto max-w-4xl px-5 pt-24 text-center">
-          <div className="mx-auto mb-6 flex w-fit items-center justify-center gap-4 rounded-full border border-primary/40 bg-primary/5 px-6 py-2 shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
-            <span className="h-[1px] w-6 sm:w-8 bg-primary/50"></span>
-            <span className="whitespace-nowrap text-[0.7rem] sm:text-xs tracking-[0.25em] text-primary/90 uppercase">
-              EST. <span className="font-semibold text-primary brightness-110 ml-1">2017</span>
-            </span>
-            <span className="h-[1px] w-6 sm:w-8 bg-primary/50"></span>
-          </div>
-          <h1 className="mt-6 text-5xl leading-tight sm:text-6xl lg:text-7xl">NithyA EventS</h1>
-          <p className="mt-5 font-display text-2xl text-primary sm:text-3xl">
-            We celebrate your dreams
-          </p>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground">
-            Weddings, corporate events, cultural programmes and private celebrations — planned and
-            executed end to end by one experienced team.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 w-full px-4 sm:px-0">
-            <a href="#contact" className="btn-gold w-full sm:w-auto">
-              Get In Touch
-            </a>
-            <a
-              href="https://wa.me/919030119257"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-gold w-full sm:w-auto"
-            >
-              WhatsApp Us
-            </a>
-          </div>
-        </div>
-      </section>
+    <div id="top" className="min-h-screen bg-botanical relative text-[var(--color-text-main)] pt-20">
 
-      {/* Services */}
-      <section id="services" className="border-y border-border bg-card/40 py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="text-center">
-            <p className="eyebrow">What we handle</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              Our <span className="text-primary">Services</span>
-            </h2>
-          </div>
-          <div className="mt-14 mx-auto max-w-6xl grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((item) => (
-              <article
-                key={item.title}
-                className="group overflow-hidden border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.3)]"
-              >
-                <div className="aspect-[6/5] overflow-hidden">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    loading="lazy"
-                    width={800}
-                    height={1008}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl">{item.title}</h3>
-                  <span className="gold-rule mt-3" />
-                  <p className="mt-4 text-sm text-muted-foreground">{item.body}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ══════════════════════════════════════════════
+          HERO SECTION
+      ══════════════════════════════════════════════ */}
+      <section className="relative min-h-[calc(100vh-5rem)] flex flex-col overflow-hidden">
+        
+        {/* Right-half botanical ivory background */}
+        <div className="absolute inset-y-0 right-0 w-[57%] bg-[var(--color-background)] z-0 pointer-events-none hidden lg:block" />
 
-      {/* About */}
-      <section id="about" className="mx-auto max-w-7xl px-5 py-24">
-        <div className="grid gap-14 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow">About us</p>
-            <span className="gold-rule mt-5" />
-            <h2 className="mt-6 text-3xl sm:text-4xl">
-              We don't just plan events. We create{" "}
-              <em className="text-primary not-italic">experiences that stay with you.</em>
-            </h2>
-          </div>
-          <div className="space-y-5 text-muted-foreground">
-            <p>
-              Founded in 2017, NithyA EventS has grown into one of the region's trusted and
-              sought-after names in wedding planning and event management. What began as a passion
-              for beautiful celebrations became a team-driven journey of creativity and
-              unforgettable experiences.
+        {/* Bottom-right solid burgundy wave — sits ON TOP of the image */}
+        <div className="absolute bottom-0 right-0 w-[50%] h-[320px] z-[15] pointer-events-none hidden lg:block">
+          <svg viewBox="0 0 200 120" preserveAspectRatio="none" className="w-full h-full">
+            <path d="M0,120 C50,85 90,25 200,0 L200,120 Z" fill="var(--color-primary)" />
+          </svg>
+          {/* "Let's Create Something Beautiful" script */}
+          <div className="absolute bottom-8 right-10 text-right">
+            <p className="script-text text-[var(--color-accent)] text-[1.8rem] xl:text-[2rem] leading-[0.9] -rotate-6 drop-shadow-sm">
+              Let's Create<br/><span className="text-white ml-10">Something Beautiful</span>
             </p>
-            <p>
-              For us, an event is never just a date on the calendar — it's a story waiting to be
-              told. A wedding joins two journeys into one. A corporate event is a chance to inspire
-              and connect. A private celebration is a collection of moments worth remembering.
-              That's why we put our heart into every detail.
-            </p>
+            <div className="w-12 h-px bg-white/40 mt-3 ml-auto" />
           </div>
         </div>
-        <div className="mt-16 flex flex-wrap justify-center gap-12 sm:gap-24 border-t border-border pt-12">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="font-display text-4xl text-primary">{s.value}</p>
-              <p className="mt-2 text-[0.68rem] uppercase tracking-[0.16em]">{s.label}</p>
+
+        {/* Decorative botanical leaf — top area behind heading */}
+        <div className="absolute top-4 left-[38%] w-24 h-40 z-0 pointer-events-none opacity-60 hidden lg:block">
+          <LeafDecor className="w-full h-full" />
+        </div>
+
+        {/* ── Main Hero Grid ── */}
+        <div className="max-w-[1400px] mx-auto px-6 w-full grid lg:grid-cols-[43fr_57fr] gap-0 items-start relative z-[2] flex-1">
+          
+          {/* ── Left Text Column ── */}
+          <div className="flex flex-col items-start pt-6 pb-6 sm:pt-8 lg:pt-12 xl:pt-14 lg:pr-6 xl:pr-8 relative z-[12]">
+            <div className="flex items-center gap-4 mb-4 lg:mb-5">
+              <span className="eyebrow tracking-[0.25em] text-[0.7rem] font-bold text-[var(--color-text-muted)] uppercase">TURNING MOMENTS INTO MEMORIES</span>
+              <span className="w-12 h-px bg-[var(--color-accent)]/40" />
             </div>
-          ))}
+
+            <h1 className="heading-main text-5xl min-[400px]:text-[4rem] sm:text-[5rem] lg:text-[5.5rem] xl:text-[7rem] leading-[0.88] tracking-tight mb-1 text-[var(--color-text-main)]">
+              NithyA<br/><span className="text-[var(--color-primary)]">EventS</span>
+            </h1>
+
+            <p className="script-text text-4xl min-[400px]:text-[2.2rem] sm:text-[2.8rem] lg:text-[2.6rem] xl:text-[3rem] text-[var(--color-accent)] mb-4 lg:mb-5 -ml-1 -rotate-2">
+              We celebrate your dreams
+            </p>
+
+            <p className="text-[0.92rem] lg:text-[0.95rem] text-[var(--color-text-muted)] leading-[1.7] max-w-[440px] mb-6 lg:mb-8">
+              Weddings, corporate events, cultural programmes and private celebrations — planned and executed end to end by one experienced team.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-5">
+              <a href="#contact" className="btn-primary">
+                GET IN TOUCH <ArrowRight className="w-4 h-4 ml-2" />
+              </a>
+              <a href="#about" className="group flex items-center gap-3 text-[0.8rem] tracking-[0.2em] font-semibold text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors uppercase">
+                <span className="w-10 h-10 rounded-full border border-current flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Play className="w-3.5 h-3.5 ml-0.5 fill-current" />
+                </span>
+                WATCH OUR STORY
+              </a>
+            </div>
+          </div>
+
+          {/* ── Right Image Column ── */}
+          <div className="relative w-full mt-2 lg:mt-0 order-last lg:order-none z-[1] h-[350px] sm:h-[420px] lg:h-auto lg:self-stretch">
+            
+            {/* Arched image — large rounded-left shape on desktop, rounded top on mobile */}
+            {/* Gold border ring around the curved image */}
+            <div className="absolute right-0 lg:-right-8 xl:-right-16 2xl:-right-24 top-0 bottom-0 w-full lg:w-[calc(100%+32px)] xl:w-[calc(100%+64px)] 2xl:w-[calc(100%+96px)] overflow-hidden rounded-t-[35%] sm:rounded-t-[40%] lg:rounded-t-none lg:rounded-l-[50%] ring-[3px] ring-[var(--color-accent)]/60 shadow-[0_0_30px_rgba(201,154,74,0.15)]">
+              <img
+                src={heroImg}
+                alt="Luxury Wedding Setup"
+                className="w-full h-full object-cover object-[center_30%] lg:object-[35%_center] scale-[1.02] hover:scale-[1.05] transition-transform duration-[3s]"
+              />
+              {/* Soft gradient overlay at bottom on mobile */}
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[var(--color-background)]/70 lg:from-transparent to-transparent pointer-events-none" />
+            </div>
+
+            {/* EST 2017 Badge — on the left seam of the arch */}
+            <div className="absolute top-4 left-4 lg:top-[35%] lg:left-[8px] xl:left-[-60px] z-[25]">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 bg-white/98 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center border border-[var(--color-accent)]/25">
+                <div className="absolute inset-1.5 lg:inset-2 rounded-full border border-[var(--color-accent)]/20 pointer-events-none" />
+                <span className="text-[0.4rem] lg:text-[0.45rem] xl:text-[0.55rem] tracking-[0.25em] font-bold text-[var(--color-text-muted)] mb-0.5">EST.</span>
+                <span className="heading-main text-[1.2rem] sm:text-[1.4rem] lg:text-[1.6rem] xl:text-[2.2rem] leading-none text-[var(--color-primary)] mb-0.5 lg:mb-1 xl:mb-1.5">2017</span>
+                <div className="flex flex-col items-center gap-[1px] text-[0.3rem] sm:text-[0.33rem] lg:text-[0.35rem] xl:text-[0.44rem] tracking-[0.18em] text-[var(--color-text-muted)] uppercase text-center leading-tight">
+                  <span>EVENTS</span>
+                  <span>PEOPLE</span>
+                  <span>MEMORIES</span>
+                  <span>FOREVER</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Hero Statistics Bar ── */}
+        <div className="relative z-[20] mt-auto">
+          <div className="max-w-[1400px] mx-auto px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 border-t border-[var(--color-accent)]/20 lg:w-[43%] pt-5 pb-6 lg:pt-6 lg:pb-8 gap-4 sm:gap-6">
+              <div className="flex flex-col items-center text-center">
+                <Users className="w-5 h-5 text-[var(--color-accent)] mb-2 opacity-70" />
+                <p className="heading-main text-[1.6rem] lg:text-[1.8rem] text-[var(--color-text-main)] mb-0.5 leading-none">500+</p>
+                <p className="eyebrow text-[0.5rem] lg:text-[0.55rem] tracking-[0.25em] text-[var(--color-text-muted)]">HAPPY CLIENTS</p>
+              </div>
+              <div className="flex flex-col items-center text-center md:border-l border-[var(--color-accent)]/20">
+                <Calendar className="w-5 h-5 text-[var(--color-accent)] mb-2 opacity-70" />
+                <p className="heading-main text-[1.6rem] lg:text-[1.8rem] text-[var(--color-text-main)] mb-0.5 leading-none">7+</p>
+                <p className="eyebrow text-[0.5rem] lg:text-[0.55rem] tracking-[0.25em] text-[var(--color-text-muted)]">YEARS OF EXPERIENCE</p>
+              </div>
+              <div className="flex flex-col items-center text-center md:border-l border-[var(--color-accent)]/20">
+                <Star className="w-5 h-5 text-[var(--color-accent)] mb-2 opacity-70" />
+                <p className="heading-main text-[1.6rem] lg:text-[1.8rem] text-[var(--color-text-main)] mb-0.5 leading-none">1000+</p>
+                <p className="eyebrow text-[0.5rem] lg:text-[0.55rem] tracking-[0.25em] text-[var(--color-text-muted)]">EVENTS EXECUTED</p>
+              </div>
+              <div className="flex flex-col items-center text-center md:border-l border-[var(--color-accent)]/20">
+                <Heart className="w-5 h-5 text-[var(--color-accent)] mb-2 opacity-70" />
+                <p className="heading-main text-[0.9rem] lg:text-[1rem] text-[var(--color-primary)] uppercase tracking-widest mb-0.5 leading-none mt-1">MEMORIES</p>
+                <p className="eyebrow text-[0.5rem] lg:text-[0.55rem] tracking-[0.25em] text-[var(--color-text-muted)]">THAT LAST FOREVER</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Why / Promise */}
-      <section className="mx-auto max-w-7xl px-5 py-24">
-        <div className="grid gap-14 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow">Why NithyA EventS?</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              Your event deserves more than a checklist. It deserves a{" "}
-              <span className="text-primary">vision.</span>
+      {/* ══════════════════════════════════════════════
+          ABOUT US SECTION
+      ══════════════════════════════════════════════ */}
+      <section id="about" className="relative py-32 px-6 max-w-[1400px] mx-auto border-t border-[var(--color-accent)]/10">
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 items-start">
+
+          {/* Left text */}
+          <div className="pt-4">
+            <p className="eyebrow mb-5 tracking-[0.2em] text-[0.8rem] font-semibold text-[var(--color-accent)]">ABOUT US</p>
+            <h2 className="heading-main text-[2.8rem] sm:text-[3.8rem] leading-[1.05] mb-2 text-[var(--color-text-main)]">
+              We don't just<br/>plan events.
             </h2>
-            <ul className="mt-8 space-y-4">
-              {whyPoints.map((point) => (
-                <li key={point} className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-primary" />
-                  {point}
+            <h2 className="heading-main text-[2.8rem] sm:text-[3.8rem] leading-[1.05] mb-8 text-[var(--color-primary)]">
+              We create experiences<br/><span className="text-[var(--color-text-main)]">that stay with you.</span>
+            </h2>
+
+            <div className="space-y-5 text-[0.98rem] text-[var(--color-text-muted)] leading-[1.85] max-w-xl">
+              <p>
+                Founded in 2017, NithyA EventS has grown into one of the region's trusted and
+                sought-after names in wedding planning and event management. What began as a passion
+                for beautiful celebrations became a team-driven journey of creativity and unforgettable experiences.
+              </p>
+              <p>
+                For us, an event is never just a date on the calendar — it's a story waiting to be told. A wedding joins two journeys into one. A corporate event is a chance to inspire and connect. A private celebration is a collection of moments worth remembering. That's why we put our heart into every detail.
+              </p>
+            </div>
+
+            {/* Script watermark */}
+            <div className="mt-12 pt-8 border-t border-[var(--color-accent)]/20">
+              <p className="script-text text-[3rem] leading-[0.85] text-[var(--color-accent)] opacity-75 -rotate-3 ml-3">
+                Moments<br/>
+                <span className="ml-8">People</span><br/>
+                <span className="ml-16">Memories Forever</span>
+              </p>
+              <div className="w-14 h-px bg-[var(--color-accent)] mt-5 ml-4 opacity-50" />
+            </div>
+          </div>
+
+          {/* Right arched image */}
+          <div className="relative h-[450px] sm:h-[550px] lg:h-[650px] w-full mt-10 lg:mt-0 order-last lg:order-none z-0">
+            {/* Arch image */}
+            <div className="absolute right-0 lg:right-[-40px] top-0 bottom-0 w-full lg:w-[110%] overflow-hidden rounded-t-[40%] lg:rounded-t-none lg:rounded-l-[50%] z-0">
+              <img
+                src={expTeam}
+                alt="NithyA Events Team"
+                className="w-full h-full object-cover object-[center_35%] lg:object-[40%_center]"
+              />
+            </div>
+            {/* Decorative leaf by arch */}
+            <div className="absolute top-12 left-16 w-16 h-28 pointer-events-none opacity-70 hidden lg:block z-10">
+              <LeafDecor className="w-full h-full" />
+            </div>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 mt-28 max-w-3xl mx-auto border border-[var(--color-accent)]/20 rounded-2xl py-12 px-8 bg-white/60 backdrop-blur-sm relative z-10">
+          <div className="flex flex-col items-center text-center">
+            <Calendar className="w-8 h-8 text-[var(--color-accent)] mb-4 opacity-80" />
+            <p className="heading-main text-[2.2rem] text-[var(--color-primary)] mb-1 leading-none">1000+</p>
+            <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] font-semibold">EVENTS</p>
+          </div>
+          <div className="flex flex-col items-center text-center sm:border-l sm:border-r border-[var(--color-accent)]/20">
+            <MapPin className="w-8 h-8 text-[var(--color-accent)] mb-4 opacity-80" />
+            <p className="heading-main text-[2.2rem] text-[var(--color-primary)] mb-1 leading-none">50+</p>
+            <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] font-semibold">LOCATIONS</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <Heart className="w-8 h-8 text-[var(--color-accent)] mb-4 opacity-80" />
+            <p className="heading-main text-[2.2rem] text-[var(--color-primary)] mb-1 leading-none">100%</p>
+            <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)] font-semibold">SATISFACTION</p>
+          </div>
+          {/* Decorative leaf in stats box corner */}
+          <div className="absolute top-4 right-6 w-10 h-16 pointer-events-none hidden sm:block">
+            <LeafDecor className="w-full h-full" />
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          WHY NITHYA EVENTS / PROCESS
+      ══════════════════════════════════════════════ */}
+      <section className="relative py-24 px-6 max-w-[1400px] mx-auto">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-20">
+          
+          {/* Left: Why us */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <p className="eyebrow tracking-[0.2em] text-[0.75rem] font-semibold text-[var(--color-accent)]">WHY NITHYA EVENTS?</p>
+              <span className="w-12 h-px bg-[var(--color-accent)]/30" />
+            </div>
+            <h2 className="heading-main text-[2.4rem] leading-[1.2] mb-10 text-[var(--color-text-main)]">
+              Your event deserves more<br/>than a checklist. It deserves a <span className="text-[var(--color-accent)]">vision.</span>
+            </h2>
+            <ul className="space-y-5">
+              {[
+                "We listen before we create.",
+                "We plan before we execute.",
+                "We focus on details others overlook.",
+                "We anticipate problems before they arrive.",
+                "We stay committed until the very last moment.",
+              ].map((point) => (
+                <li key={point} className="flex items-center gap-4">
+                  <div className="w-5 h-5 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[0.95rem] text-[var(--color-text-main)]">{point}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-8 text-sm text-muted-foreground">
-              Our greatest achievement isn't the number of events we've completed — it's the trust
-              our clients place in us to be part of their most important moments.
-            </p>
-          </div>
-          <div className="border border-border bg-card p-10">
-            <p className="eyebrow">Event Management Process</p>
-            <div className="mt-6 space-y-6">
-              <div>
-                <h4 className="text-primary font-display text-xl">01 — DISCOVER</h4>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Understand the client's vision.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-primary font-display text-xl">02 — DESIGN</h4>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Develop the event concept and experience.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-primary font-display text-xl">03 — EXECUTE</h4>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Coordinate venue, vendors, production and technical requirements.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-primary font-display text-xl">04 — DELIVER</h4>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Execute the event professionally and create a memorable experience.
-                </p>
-              </div>
+            <div className="mt-12 pt-8 border-t border-[var(--color-accent)]/20">
+              <p className="text-[0.9rem] text-[var(--color-text-muted)] leading-relaxed max-w-lg">
+                Our greatest achievement isn't the number of events we've completed — 
+                it's the trust our clients place in us to be part of their most important moments.
+              </p>
             </div>
-            <span className="gold-rule mt-8" />
-            <p className="mt-6 text-sm text-primary">
-              Your vision. Our creativity. One unforgettable experience.
-            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Clients */}
-      <section id="clients" className="border-y border-border bg-card/40 py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="text-center">
-            <p className="eyebrow">Brands that trust us</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              Our <span className="text-primary">Clients</span>
-            </h2>
-          </div>
-          <div className="mt-14 overflow-hidden py-4">
-            <div className="marquee-track gap-10 sm:gap-16">
-              {/* Duplicated for smooth infinite scroll */}
-              {[...clientLogos, ...clientLogos].map((img, i) => (
-                <div
-                  key={i}
-                  className="flex h-24 w-40 shrink-0 items-center justify-center rounded bg-white p-4 filter grayscale transition-all hover:grayscale-0"
-                >
-                  <img
-                    src={img as string}
-                    alt="Client Logo"
-                    loading="lazy"
-                    className="max-h-full max-w-full object-contain"
-                  />
+          {/* Right: Process */}
+          <div className="bg-white/40 border border-[var(--color-accent)]/20 rounded-xl p-10 backdrop-blur-sm relative overflow-hidden">
+            <p className="eyebrow mb-10 text-[0.72rem] font-semibold tracking-[0.22em] text-[var(--color-accent)]">EVENT MANAGEMENT PROCESS</p>
+            <div className="space-y-8">
+              {[
+                { num: "01", title: "DISCOVER", text: "Understand the client's vision." },
+                { num: "02", title: "DESIGN",   text: "Develop the event concept and experience." },
+                { num: "03", title: "EXECUTE",  text: "Coordinate venue, vendors, production and technical requirements." },
+                { num: "04", title: "DELIVER",  text: "Execute the event professionally and create a memorable experience." },
+              ].map((step) => (
+                <div key={step.num} className="flex gap-6 items-start">
+                  <div className="w-12 h-12 rounded-full border border-[var(--color-accent)]/50 text-[var(--color-primary)] flex items-center justify-center shrink-0 heading-main text-[1.3rem] bg-white/60">
+                    {step.num}
+                  </div>
+                  <div>
+                    <h4 className="heading-main text-[1rem] mb-1 tracking-widest text-[var(--color-primary)]">{step.title}</h4>
+                    <p className="text-[var(--color-text-muted)] text-[0.88rem] leading-relaxed">{step.text}</p>
+                  </div>
                 </div>
               ))}
             </div>
+            <div className="mt-12 pt-6 border-t border-[var(--color-accent)]/20 text-center">
+              <p className="text-[0.82rem] text-[var(--color-accent)] font-medium italic">Your vision. Our creativity. One unforgettable experience.</p>
+            </div>
+            {/* decorative leaf in process box */}
+            <div className="absolute bottom-8 right-6 w-10 h-18 pointer-events-none opacity-60">
+              <LeafDecor className="w-full h-full" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section id="team" className="border-y border-border bg-card/40 py-24">
-        <div className="mx-auto max-w-5xl px-5">
-          <div className="text-center">
-            <p className="eyebrow">The people behind it</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              Meet the <span className="text-primary">team</span>
-            </h2>
+
+      {/* ══════════════════════════════════════════════
+          SERVICES PREVIEW
+      ══════════════════════════════════════════════ */}
+      <section id="services" className="relative py-32 px-6 max-w-[1400px] mx-auto border-t border-[var(--color-accent)]/10">
+        <div className="text-center mb-16 relative">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="w-8 h-px bg-[var(--color-accent)]/40" />
+            <p className="eyebrow tracking-[0.22em] text-[0.78rem] font-semibold text-[var(--color-accent)]">WHAT WE HANDLE</p>
+            <span className="w-8 h-px bg-[var(--color-accent)]/40" />
           </div>
-          <div className="mt-14 grid gap-8 md:grid-cols-2">
-            {team.map((m) => (
-              <article
-                key={m.name}
-                className="border border-border bg-background p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]"
-              >
-                <h3 className="text-2xl">{m.name}</h3>
-                <p className="eyebrow mt-1">
-                  {m.role}
+          <h2 className="heading-main text-[3rem] sm:text-[4rem] mb-5">
+            Our <span className="text-[var(--color-primary)]">Events</span>
+          </h2>
+          <p className="text-[var(--color-text-muted)] max-w-xl mx-auto text-[0.95rem] leading-relaxed">
+            From intimate gatherings to grand celebrations, we bring your vision to life<br/>with creativity, precision and care.
+          </p>
+          {/* "Every Occasion Matters" script — top right */}
+          <div className="absolute right-0 top-0 hidden lg:block pointer-events-none">
+            <p className="script-text text-[2.8rem] text-[var(--color-accent)] opacity-70 -rotate-6 leading-[0.9]">
+              Every<br/><span className="ml-10">Occasion</span><br/><span className="ml-20">Matters</span>
+            </p>
+            <div className="w-12 h-px bg-[var(--color-accent)] mt-2 ml-auto opacity-40" />
+          </div>
+        </div>
+
+        {/* 3×2 Service Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((item) => (
+            <div key={item.title} className="bg-white rounded-[20px] overflow-hidden border border-[var(--color-accent)]/20 hover:shadow-[0_15px_40px_rgba(201,154,74,0.15)] transition-all duration-500 group flex flex-col cursor-pointer relative">
+              <div className="p-2 relative">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-[220px] object-cover rounded-t-[16px] rounded-b-[4px]"
+                />
+                {/* Botanical leaf overlay on image bottom-left */}
+                <div className="absolute bottom-2 left-2 w-12 h-20 pointer-events-none opacity-70">
+                  <LeafDecor className="w-full h-full" />
+                </div>
+              </div>
+              <div className="p-8 flex flex-col flex-grow relative">
+                <h3 className="heading-main text-[1.5rem] text-[var(--color-primary)] mb-2">{item.title}</h3>
+                {/* Thin gold underline below title */}
+                <div className="w-10 h-px bg-[var(--color-accent)] mb-4 opacity-60" />
+                <p className="text-[var(--color-text-muted)] text-[0.93rem] leading-relaxed mb-6 pr-14">
+                  {item.body}
                 </p>
-                <span className="gold-rule mt-4" />
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{m.body}</p>
-              </article>
-            ))}
+                {/* Arrow button */}
+                <div className="absolute bottom-8 right-8">
+                  <div className="w-10 h-10 rounded-full border border-[var(--color-accent)] flex items-center justify-center text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-white group-hover:border-transparent transition-all duration-300">
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Services Bottom CTA Banner ── */}
+        <div className="relative mt-24 rounded-2xl overflow-hidden min-h-[280px] bg-[var(--color-background)] border border-[var(--color-accent)]/10 flex items-center">
+          
+          {/* Left: circular badge */}
+          <div className="absolute left-10 top-1/2 -translate-y-1/2 hidden lg:flex z-10">
+            <div className="relative w-40 h-40 rounded-full border-2 border-[var(--color-accent)]/30 flex flex-col items-center justify-center text-center px-4 bg-white/80 shadow-xl">
+              <div className="absolute inset-2 rounded-full border border-[var(--color-accent)]/15 pointer-events-none" />
+              <p className="eyebrow text-[0.55rem] tracking-[0.15em] text-[var(--color-text-muted)] mb-1">LET'S<br/>PLAN YOUR</p>
+              <p className="script-text text-[2rem] text-[var(--color-accent)] leading-none -rotate-3">Next<br/>Celebration</p>
+            </div>
+          </div>
+
+          {/* Centre text */}
+          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left px-8 py-14 lg:pl-[240px] lg:pr-[32%] relative z-20">
+            <div className="w-full max-w-[500px] flex flex-col items-center lg:items-start mx-auto lg:mx-0">
+              <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
+                <span className="w-8 h-px bg-[var(--color-accent)]/40 hidden lg:block" />
+                <p className="eyebrow tracking-[0.22em] text-[0.65rem] font-semibold text-[var(--color-accent)]">TURNING IDEAS INTO UNFORGETTABLE EXPERIENCES</p>
+                <span className="w-8 h-px bg-[var(--color-accent)]/40 hidden lg:block" />
+              </div>
+              <h2 className="heading-main text-[2.4rem] sm:text-[3rem] lg:text-[3.2rem] mb-4 text-[var(--color-text-main)] leading-[1.1]">
+                Ready to Create<br />Something <span className="text-[var(--color-primary)]">Beautiful</span>
+              </h2>
+              <p className="text-[var(--color-text-muted)] text-[0.95rem] mb-8 max-w-[400px]">Get in touch with us today and let's plan an event to remember.</p>
+              <a href="#contact" className="btn-primary inline-flex">
+                GET IN TOUCH <ArrowRight className="w-4 h-4 ml-2" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right: burgundy swoosh */}
+          <div className="absolute right-0 top-0 bottom-0 w-[28%] z-10 pointer-events-none hidden lg:block">
+            <svg viewBox="0 0 200 280" preserveAspectRatio="none" className="w-full h-full">
+              <path d="M200,0 L200,280 C140,280 60,200 0,0 Z" fill="var(--color-primary)" />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-end pr-6">
+              <p className="script-text text-white text-[2rem] leading-[0.85] -rotate-6 text-right opacity-90">
+                Moments<br/>People<br/>Memories<br/>Forever
+              </p>
+            </div>
+          </div>
+
+          {/* Leaf decor */}
+          <div className="absolute left-[30%] top-6 w-10 h-18 pointer-events-none opacity-50 hidden lg:block">
+            <LeafDecor className="w-full h-full" />
           </div>
         </div>
       </section>
 
-      {/* Reviews */}
-      <section id="reviews" className="border-t border-border bg-background py-24 scroll-mt-20">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="text-center">
-            <p className="eyebrow">Trusted by clients. Remembered for the experience.</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl uppercase">
-              What Our <span className="text-primary">Clients Say</span>
+      {/* ══════════════════════════════════════════════
+          REVIEWS SECTION
+      ══════════════════════════════════════════════ */}
+      <section id="reviews" className="relative py-32 px-6 max-w-[1400px] mx-auto border-t border-[var(--color-accent)]/10">
+        
+        {/* "People Moments Memories Forever" — left side */}
+        <div className="absolute left-0 top-24 hidden xl:block pointer-events-none z-0">
+          <p className="script-text text-[2.8rem] text-[var(--color-accent)] opacity-60 -rotate-6 leading-[0.85]">
+            People<br/>Moments<br/>Memories<br/>Forever
+          </p>
+          <div className="w-12 h-px bg-[var(--color-accent)] mt-4 ml-4 opacity-40" />
+        </div>
+
+        <div className="text-center mb-16 relative">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="w-10 h-px bg-[var(--color-accent)]/40" />
+            <p className="eyebrow tracking-[0.22em] text-[0.72rem] font-semibold text-[var(--color-accent)]">TRUSTED BY CLIENTS. REMEMBERED FOR THE EXPERIENCE.</p>
+            <span className="w-10 h-px bg-[var(--color-accent)]/40" />
+          </div>
+          <h2 className="heading-main text-[3rem] sm:text-[4rem] mb-2">
+            What Our <span className="text-[var(--color-primary)]">Clients</span> Say
+          </h2>
+          <p className="text-[var(--color-text-muted)] text-[0.95rem]">Real stories. Beautiful celebrations. Lasting memories.</p>
+          {/* "It's not just an event, it's a feeling" — right side */}
+          <div className="absolute right-0 top-0 hidden lg:block pointer-events-none">
+            <p className="script-text text-[2.2rem] text-[var(--color-accent)] opacity-70 -rotate-6 leading-[0.88]">
+              It's not just<br/><span className="ml-4">an event,</span><br/><span className="ml-12">it's a feeling</span>
+            </p>
+            <div className="w-10 h-px bg-[var(--color-accent)] mt-2 ml-auto opacity-40" />
+          </div>
+          {/* Leaf decor top right */}
+          <div className="absolute right-0 top-[-20px] w-12 h-24 pointer-events-none hidden lg:block" style={{ right: "12rem" }}>
+            <LeafDecor className="w-full h-full" />
+          </div>
+        </div>
+
+        {/* Review cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { name: "Mounika G", initial: "M", revs: "3 reviews", body: "Nithya events did a fantastic job organised the pm vishwakarma awareness program. The arrangements, stage setup and coordination were very professional.", time: "6 months ago" },
+            { name: "M Narsimhachary", initial: "M", revs: "1 review", body: "The PM Vishwakarma program organised under MSME was executed excellently by Nithya events.", time: "6 months ago" },
+            { name: "Shiva Balusula", initial: "S", revs: "2 reviews", body: "I recently had the pleasure of working with Nithya Events, and I must say, they exceeded all my expectations! The team's attention to detail, creativity, and professionalism are truly unmatched ...", time: "a year ago" },
+          ].map((r, i) => (
+            <div key={i} className="bg-white rounded-xl border border-[var(--color-accent)]/20 p-8 flex flex-col relative shadow-sm overflow-hidden">
+              {/* Large decorative quotation mark */}
+              <div className="absolute top-5 right-6 text-[4rem] text-[var(--color-accent)] opacity-30 font-serif leading-none select-none">"</div>
+              
+              {/* Botanical leaf decoration — bottom right corner */}
+              <div className="absolute bottom-2 right-2 w-10 h-18 pointer-events-none opacity-50">
+                <LeafDecor className="w-full h-full" />
+              </div>
+
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center heading-main text-xl shrink-0">
+                  {r.initial}
+                </div>
+                <div>
+                  <h3 className="heading-main text-[1rem] font-medium text-[var(--color-text-main)]">{r.name}</h3>
+                  <p className="text-[0.72rem] text-[var(--color-text-muted)]">{r.revs}</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-5">
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} className="w-4 h-4 fill-[var(--color-accent)] text-[var(--color-accent)]" />
+                ))}
+              </div>
+              <p className="text-[var(--color-text-muted)] text-[0.92rem] leading-[1.8] flex-grow italic font-serif">"{r.body}"</p>
+              <div className="mt-6 text-[0.72rem] text-[var(--color-text-muted)]">{r.time}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <a
+            href="https://www.google.com/search?q=nithya+events&ie=UTF-8#lrd=0x3bccd8e11e018ce7:0x7aaf762b38516aa7,1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-3 rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] font-semibold text-[0.78rem] tracking-widest uppercase hover:bg-[var(--color-primary)] hover:text-white transition-all bg-white"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            VIEW MORE REVIEWS ON GOOGLE <ArrowRight className="w-4 h-4 ml-1" />
+          </a>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          PRE-CONTACT BANNER
+          "YOUR CELEBRATION MATTERS — Ready to Plan Your Dream Event?"
+      ══════════════════════════════════════════════ */}
+      <section className="relative h-[440px] overflow-hidden">
+        {/* Background image */}
+        <img src={expWedding} alt="Dream Event" className="absolute inset-0 w-full h-full object-cover object-center brightness-75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-black/10 pointer-events-none" />
+
+        {/* Left burgundy swoosh */}
+        <div className="absolute bottom-0 left-0 w-[36%] h-full z-10 pointer-events-none hidden lg:block">
+          <svg viewBox="0 0 200 240" preserveAspectRatio="none" className="w-full h-full">
+            <path d="M0,240 L0,0 C60,60 110,200 200,240 Z" fill="var(--color-primary)" />
+          </svg>
+          <div className="absolute bottom-12 left-10">
+            <p className="script-text text-white text-[2.2rem] leading-[0.85] -rotate-6 opacity-90">
+              Let's Create<br/>Something Beautiful
+            </p>
+            <div className="w-10 h-px bg-[var(--color-accent)] mt-4 ml-6 opacity-50" />
+          </div>
+        </div>
+
+        {/* Centre CTA */}
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className="text-center px-8">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <span className="w-10 h-px bg-[var(--color-accent)]/70" />
+              <p className="eyebrow tracking-[0.22em] text-[0.65rem] font-semibold text-[var(--color-accent)]">YOUR CELEBRATION MATTERS</p>
+              <span className="w-10 h-px bg-[var(--color-accent)]/70" />
+            </div>
+            <h2 className="heading-main text-[2.6rem] sm:text-[3.4rem] text-white mb-4 leading-tight drop-shadow-xl">
+              Ready to Plan Your <span className="text-[var(--color-accent)]">Dream Event?</span>
             </h2>
-          </div>
-
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Review 1 */}
-            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
-                  M
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">Mounika G</h3>
-                  <p className="text-xs text-muted-foreground">3 reviews</p>
-                </div>
-              </div>
-              <div className="mt-5 flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "Nithya events did a fantastic job organised the pm vishwakarma awareness program.
-                The arrangements, stage setup and coordination were very professional."
-              </p>
-              <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
-            </article>
-
-            {/* Review 2 */}
-            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
-                  M
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">M Narsimhachary</h3>
-                  <p className="text-xs text-muted-foreground">1 review</p>
-                </div>
-              </div>
-              <div className="mt-5 flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "The PM Vishwakarma program organised under MSME was executed excellently by Nithya
-                events."
-              </p>
-              <p className="mt-6 text-xs text-muted-foreground">6 months ago</p>
-            </article>
-
-            {/* Review 3 */}
-            <article className="flex flex-col border border-border bg-card/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.15)]">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border border-primary/30 text-primary font-display text-xl">
-                  S
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">Shiva Balusula</h3>
-                  <p className="text-xs text-muted-foreground">2 reviews</p>
-                </div>
-              </div>
-              <div className="mt-5 flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground flex-grow">
-                "I recently had the pleasure of working with Nithya Events, and I must say, they
-                exceeded all my expectations! The team's attention to detail, creativity, and
-                professionalism are truly unmatched ..."
-              </p>
-              <p className="mt-6 text-xs text-muted-foreground">a year ago</p>
-            </article>
-          </div>
-
-          <div className="mt-16 flex justify-center">
-            <a
-              href="https://www.google.com/search?q=nithya+events&ie=UTF-8#lrd=0x3bccd8e11e018ce7:0x7aaf762b38516aa7,1"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View more reviews on Google"
-              className="btn-outline-gold inline-flex items-center justify-center"
-            >
-              VIEW MORE REVIEWS ON GOOGLE
+            <p className="text-white/75 text-[0.92rem] mb-8">Let's create moments that people will always remember.</p>
+            <a href="#contact" className="btn-primary inline-flex">
+              PLAN YOUR EVENT <ArrowRight className="w-4 h-4 ml-2" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="mx-auto max-w-7xl px-5 py-24 scroll-mt-20">
-        <div className="grid gap-14 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow">Get in touch</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">
-              Let's plan your <span className="text-primary">celebration</span>
-            </h2>
-            <span className="gold-rule mt-6" />
-            <dl className="mt-10 space-y-6 text-sm">
-              <div>
-                <dt className="eyebrow">Office</dt>
-                <dd className="mt-2 leading-relaxed text-muted-foreground">
-                  <a
-                    href="https://maps.app.goo.gl/diXFAcpov7S1f7Bp7"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-primary transition-colors"
-                  >
-                    MJS Business Centre
-                    <br />
-                    2nd floor, Gandhi Rd, Islampura, Sai Nagar,
-                    <br />
-                    Karimnagar, Telangana 505001
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="eyebrow">Phone</dt>
-                <dd className="mt-2 flex flex-col gap-1 text-muted-foreground">
-                  <a href="tel:9030119257" className="hover:text-primary">
-                    9030119257
-                  </a>
-                  <a href="tel:9030102663" className="hover:text-primary">
-                    9030102663
-                  </a>
-                  <a href="tel:9030119256" className="hover:text-primary">
-                    9030119256
-                  </a>
-                </dd>
-              </div>
+      {/* ══════════════════════════════════════════════
+          CONTACT SECTION
+      ══════════════════════════════════════════════ */}
+      <section id="contact" className="relative pt-24 pb-36 lg:pb-24 bg-botanical overflow-hidden">
 
-              <div className="mt-8 rounded-md border border-border/60 bg-card/30 p-6 sm:p-8">
-                <p className="eyebrow mb-2">For Corporate Events</p>
-                <h3 className="text-xl sm:text-2xl mb-2 text-foreground">
-                  Need a professional event planned for your team?
-                </h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Reach out to our specialized corporate planning team for conferences, brand
-                  activations, and annual days.
-                </p>
-                <div className="mb-6">
-                  <p className="eyebrow mb-2">
-                    Corporate Email
-                  </p>
-                  <a
-                    href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you."
-                    className="text-foreground hover:text-primary transition-colors font-medium"
-                  >
-                    Team.nithyaevents@gmail.com
-                  </a>
-                </div>
-                <a
-                  href="mailto:Team.nithyaevents@gmail.com?subject=Corporate%20Event%20Enquiry%20%E2%80%94%20NithyA%20EventS&body=Hello%20NithyA%20EventS%20Team%2C%0A%0AI%20am%20interested%20in%20planning%20a%20corporate%20event.%0A%0AEvent%20Type%3A%0AEvent%20Date%3A%0AEvent%20Location%3A%0AExpected%20Guests%3A%0AEstimated%20Budget%3A%0AAdditional%20Requirements%3A%0A%0AThank%20you."
-                  className="btn-outline-gold inline-flex items-center justify-center gap-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  EMAIL US FOR CORPORATE EVENTS
-                </a>
-              </div>
-
-              <div className="rounded-md border border-border/60 bg-card/30 p-6 sm:p-8">
-                <p className="eyebrow mb-2">For All Events</p>
-                <h3 className="text-xl sm:text-2xl mb-2 text-foreground">
-                  Need an event planned for your special occasion?
-                </h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Reach out to our event planning team for weddings, family celebrations, private parties, cultural programmes, and other special occasions.
-                </p>
-                <div className="mb-6">
-                  <p className="eyebrow mb-2">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:nithyaevents2017@gmail.com"
-                    className="text-foreground hover:text-primary transition-colors font-medium"
-                  >
-                    nithyaevents2017@gmail.com
-                  </a>
-                </div>
-                <a
-                  href="mailto:nithyaevents2017@gmail.com"
-                  className="btn-outline-gold inline-flex items-center justify-center gap-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  EMAIL US FOR EVENTS
-                </a>
-              </div>
-
-              <div className="pt-8">
-                <dt className="eyebrow">Social</dt>
-                <dd className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-                  <a
-                    href="https://www.instagram.com/nithyaevents.in?stkn=MWx1MmRjdmRib245bQ=="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit NithyA EventS on Instagram"
-                    className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                  >
-                    <Instagram className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
-                    <span className="text-xs tracking-wide text-foreground/80 transition-colors duration-300 group-hover:text-primary">
-                      Instagram
-                    </span>
-                  </a>
-                  <a
-                    href="https://www.facebook.com/nithyaevents.in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit NithyA EventS on Facebook"
-                    className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                  >
-                    <Facebook className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
-                    <span className="text-xs tracking-wide text-foreground/80 transition-colors duration-300 group-hover:text-primary">
-                      Facebook
-                    </span>
-                  </a>
-                  <a
-                    href="https://www.youtube.com/@nithyaevents8695"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit NithyA EventS on YouTube"
-                    className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                  >
-                    <Youtube className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
-                    <span className="text-xs tracking-wide text-foreground/80 transition-colors duration-300 group-hover:text-primary">
-                      YouTube
-                    </span>
-                  </a>
-                  <a
-                    href="mailto:nithyaevents2017@gmail.com"
-                    aria-label="Email NithyA EventS"
-                    className="group flex flex-col items-center justify-center gap-2.5 rounded-md border border-border/60 bg-card/20 p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-primary/50 hover:bg-card/40 hover:shadow-[0_8px_20px_-8px_rgba(212,175,55,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                  >
-                    <Mail className="h-6 w-6 text-foreground/80 transition-colors duration-300 group-hover:text-primary" />
-                    <span className="text-xs tracking-wide text-foreground/80 transition-colors duration-300 group-hover:text-primary">
-                      Email
-                    </span>
-                  </a>
-                </dd>
-              </div>
-            </dl>
+        {/* Right edge arched image + badge */}
+        <div className="absolute right-[-80px] top-[5%] w-[340px] h-[750px] z-0 hidden xl:block pointer-events-none">
+          <div className="w-full h-full overflow-hidden rounded-l-full">
+            <img src={expWedding} alt="Celebration Decor" className="w-full h-full object-cover opacity-85" />
           </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              const name = formData.get("name") as string;
-              const phone = formData.get("phone") as string;
-              const email = formData.get("email") as string;
-              const eventType = formData.get("eventType") as string;
-              const eventDate = formData.get("eventDate") as string;
-              const location = formData.get("location") as string;
-              const budget = formData.get("budget") as string;
-              const customBudget = formData.get("customBudget") as string;
-              const message = formData.get("message") as string;
+          {/* "Let's CREATE SOMETHING Beautiful" badge */}
+          <div className="absolute top-[18%] left-[-90px] w-52 h-52 bg-white/95 rounded-full shadow-xl flex flex-col items-center justify-center text-center border border-[var(--color-accent)]/25">
+            <div className="absolute inset-2 rounded-full border border-[var(--color-accent)]/15 pointer-events-none" />
+            <p className="eyebrow text-[0.55rem] tracking-[0.12em] text-[var(--color-text-muted)] mb-0.5">LET'S</p>
+            <p className="eyebrow text-[0.55rem] tracking-[0.12em] text-[var(--color-text-muted)] mb-0.5">CREATE</p>
+            <p className="eyebrow text-[0.55rem] tracking-[0.12em] text-[var(--color-text-muted)] mb-1.5">SOMETHING</p>
+            <p className="script-text text-[2.4rem] leading-[0.7] text-[var(--color-accent)] -rotate-3">Beautiful</p>
+          </div>
+          {/* Leaf on arch seam */}
+          <div className="absolute top-8 left-10 w-12 h-20 pointer-events-none opacity-60">
+            <LeafDecor className="w-full h-full" />
+          </div>
+        </div>
 
-              const errors: Record<string, string> = {};
-              if (!name.trim()) errors.name = "Please enter your full name.";
+        <div className="max-w-[1400px] mx-auto px-6 grid xl:grid-cols-[1fr_1.1fr] gap-16 relative z-10">
 
-              const phoneClean = phone.replace(/[\s-]/g, "");
-              if (
-                !phoneClean ||
-                (!/^(?:\+?91)?[6-9]\d{9}$/.test(phoneClean) && !/^[6-9]\d{9}$/.test(phoneClean))
-              ) {
-                errors.phone = "Please enter a valid phone number.";
-              }
+          {/* ── Left: Contact Info ── */}
+          <div>
+            <div className="flex items-center gap-4 mb-5">
+              <p className="eyebrow tracking-[0.2em] text-[0.75rem] font-semibold text-[var(--color-accent)]">GET IN TOUCH</p>
+              <span className="w-14 h-px bg-[var(--color-accent)]/30" />
+            </div>
+            <h2 className="heading-main text-[3rem] sm:text-[4rem] leading-[1.05] mb-2 text-[var(--color-text-main)]">
+              Let's plan your<br/><span className="text-[var(--color-primary)]">celebration</span>
+            </h2>
+            <p className="text-[var(--color-text-muted)] text-[0.97rem] leading-relaxed max-w-md mb-10">
+              We would love to hear from you. Share your ideas, and let's create an unforgettable experience together.
+            </p>
 
-              if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                errors.email = "Please enter a valid email address.";
-              }
-
-              if (!eventType) errors.eventType = "Please select an event type.";
-              if (!eventDate) errors.eventDate = "Please select your event date.";
-
-              let finalBudget = budget;
-              if (budget === "Enter custom budget") {
-                if (!customBudget || !customBudget.replace(/\D/g, "")) {
-                  errors.customBudget = "Please enter your estimated budget.";
-                } else {
-                  finalBudget = `${customBudget} (Custom Budget)`;
-                }
-              } else if (!budget) {
-                errors.budget = "Please select your estimated budget.";
-              }
-
-              if (Object.keys(errors).length > 0) {
-                setFormErrors(errors);
-                return;
-              }
-
-              setFormErrors({});
-
-              const normalizedPhone = phoneClean.startsWith("+91")
-                ? phoneClean.substring(3)
-                : phoneClean.startsWith("91") && phoneClean.length === 12
-                  ? phoneClean.substring(2)
-                  : phoneClean;
-
-              const text = `Hello NithyA EventS,
-
-New Event Enquiry
-
-━━━━━━━━━━━━━━━━━━
-
-Name: ${name}
-Phone: ${normalizedPhone}
-Email: ${email || "Not provided"}
-
-Event Type: ${eventType || "Not specified"}
-Event Date: ${eventDate || "Not specified"}
-Event Location: ${location || "Not specified"}
-
-Budget: ${finalBudget || "Not specified"}
-
-Message:
-${message || "No message provided."}
-
-━━━━━━━━━━━━━━━━━━
-
-This enquiry was submitted through the NithyA EventS website.`;
-
-              const url = `https://wa.me/9030119257?text=${encodeURIComponent(text)}`;
-
-              setSent(true);
-              window.open(url, "_blank");
-
-              setTimeout(() => setSent(false), 2000);
-            }}
-            className="space-y-6 border border-border bg-card p-8 lg:self-start"
-          >
-            <h3 className="text-xl">Enter Your Details</h3>
-
-            <div className="space-y-4">
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="name"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Full Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  placeholder="Enter your full name"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
-                />
-                {formErrors.name && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.name}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="phone"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Phone Number
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
-                />
-                {formErrors.phone && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.phone}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="email"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Email Address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
-                />
-                {formErrors.email && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.email}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="eventType"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Event Type
-                </label>
-                <select
-                  id="eventType"
-                  name="eventType"
-                  defaultValue=""
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors text-foreground appearance-none"
-                >
-                  <option value="" disabled>
-                    Select event type
-                  </option>
-                  <option value="Wedding">Wedding</option>
-                  <option value="Reception">Reception</option>
-                  <option value="Engagement">Engagement</option>
-                  <option value="Birthday Celebration">Birthday Celebration</option>
-                  <option value="Corporate Event">Corporate Event</option>
-                  <option value="Cultural Programme">Cultural Programme</option>
-                  <option value="Private Celebration">Private Celebration</option>
-                  <option value="Other">Other</option>
-                </select>
-                {formErrors.eventType && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.eventType}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="eventDate"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Event Date
-                </label>
-                <input
-                  id="eventDate"
-                  name="eventDate"
-                  type="date"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors [color-scheme:dark]"
-                />
-                {formErrors.eventDate && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.eventDate}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="location"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Event Location
-                </label>
-                <input
-                  id="location"
-                  name="location"
-                  placeholder="Enter event location"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
-                />
-                {formErrors.location && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.location}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="budget"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Budget
-                </label>
-                <select
-                  id="budget"
-                  name="budget"
-                  defaultValue=""
-                  onChange={(e) => {
-                    setShowCustomBudget(e.target.value === "Enter custom budget");
-                    if (e.target.value !== "Enter custom budget") {
-                      setCustomBudgetValue("");
-                    }
-                  }}
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors text-foreground appearance-none"
-                >
-                  <option value="" disabled>
-                    Select your estimated budget
-                  </option>
-                  <option value="Below ₹1 Lakh">Below ₹1 Lakh</option>
-                  <option value="₹1 Lakh – ₹3 Lakhs">₹1 Lakh – ₹3 Lakhs</option>
-                  <option value="₹3 Lakhs – ₹5 Lakhs">₹3 Lakhs – ₹5 Lakhs</option>
-                  <option value="₹5 Lakhs – ₹10 Lakhs">₹5 Lakhs – ₹10 Lakhs</option>
-                  <option value="₹10 Lakhs+">₹10 Lakhs+</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                  <option value="Enter custom budget">Enter custom budget</option>
-                </select>
-                {formErrors.budget && (
-                  <p className="text-[0.68rem] text-red-400">{formErrors.budget}</p>
-                )}
-              </div>
-
-              {showCustomBudget && (
-                <div className="space-y-1.5 transition-all duration-300">
-                  <input
-                    id="customBudget"
-                    name="customBudget"
-                    type="text"
-                    value={customBudgetValue}
-                    onChange={(e) => setCustomBudgetValue(formatCustomBudget(e.target.value))}
-                    placeholder="Enter your budget amount"
-                    className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
-                  />
-                  {formErrors.customBudget && (
-                    <p className="text-[0.68rem] text-red-400">{formErrors.customBudget}</p>
-                  )}
+            {/* Office + Phone row */}
+            <div className="flex flex-col sm:flex-row gap-10 mb-10">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <MapPin className="w-5 h-5" />
                 </div>
-              )}
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="message"
-                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Tell us about your event"
-                  className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary transition-colors resize-none"
-                />
+                <div>
+                  <p className="eyebrow text-[0.65rem] font-bold text-[var(--color-text-muted)] mb-1 tracking-widest">OFFICE</p>
+                  <p className="text-[0.83rem] text-[var(--color-text-muted)] leading-relaxed">
+                    MJS Business Centre<br/>
+                    2nd floor, Gandhi Rd, Islampura, Sai Nagar,<br/>
+                    Karimnagar, Telangana 505001
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 sm:border-l sm:border-[var(--color-accent)]/25 sm:pl-10">
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="eyebrow text-[0.65rem] font-bold text-[var(--color-text-muted)] mb-1 tracking-widest">PHONE</p>
+                  <p className="text-[0.83rem] text-[var(--color-text-muted)] leading-relaxed">
+                    9030119257<br/>9030102663<br/>9030119256
+                  </p>
+                </div>
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="btn-gold w-full mt-6 flex items-center justify-center gap-2 transition-all hover:-translate-y-[2px]"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-                <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
-              </svg>
-              {sent ? "Opening WhatsApp..." : "SEND ENQUIRY ON WHATSAPP"}
-            </button>
-          </form>
+            {/* Email cards */}
+            <div className="space-y-4 max-w-lg relative">
+              {/* "People Moments Memories Forever" — far left */}
+              <div className="absolute left-[-60px] top-[10%] hidden 2xl:block z-0 pointer-events-none">
+                <p className="script-text text-[2.6rem] text-[var(--color-accent)] opacity-35 -rotate-12 leading-[0.85]">
+                  People<br/><span className="ml-6">Moments</span><br/><span className="ml-12">Memories</span><br/><span className="ml-20">Forever</span>
+                </p>
+              </div>
+
+              {/* Card 1 — Corporate */}
+              <div className="bg-white/65 backdrop-blur-sm border border-[var(--color-accent)]/30 rounded-xl p-6 shadow-sm hover:border-[var(--color-accent)] transition-colors relative overflow-hidden">
+                <div className="absolute bottom-2 right-2 w-8 h-14 pointer-events-none opacity-40">
+                  <LeafDecor className="w-full h-full" />
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 border border-[var(--color-accent)] text-[var(--color-accent)] rounded-lg flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" /></svg>
+                  </div>
+                  <div>
+                    <p className="eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">FOR CORPORATE EVENTS</p>
+                    <h4 className="heading-main text-[1.05rem] text-[var(--color-primary)] mb-2">Need a professional event planned for your team?</h4>
+                    <p className="text-[0.78rem] text-[var(--color-text-muted)] leading-relaxed mb-3">Reach out to our specialized corporate planning team for conferences, brand activations, and annual days.</p>
+                    <p className="eyebrow text-[0.62rem] tracking-widest text-[var(--color-accent)] mb-1">CORPORATE EMAIL</p>
+                    <p className="text-[0.82rem] font-medium text-[var(--color-text-main)] mb-4">Team.nithyaevents@gmail.com</p>
+                    <a href="mailto:Team.nithyaevents@gmail.com" className="inline-flex items-center gap-2 px-5 py-2 rounded border border-[var(--color-primary)] text-[var(--color-primary)] text-[0.68rem] font-semibold tracking-widest uppercase hover:bg-[var(--color-primary)] hover:text-white transition-all">
+                      <Mail className="w-3.5 h-3.5" /> EMAIL US FOR CORPORATE EVENTS <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2 — All events */}
+              <div className="bg-white/65 backdrop-blur-sm border border-[var(--color-accent)]/30 rounded-xl p-6 shadow-sm hover:border-[var(--color-accent)] transition-colors relative overflow-hidden">
+                <div className="absolute bottom-2 right-2 w-8 h-14 pointer-events-none opacity-40">
+                  <LeafDecor className="w-full h-full" />
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 border border-[var(--color-accent)] text-[var(--color-accent)] rounded-lg flex items-center justify-center shrink-0">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">FOR ALL EVENTS</p>
+                    <h4 className="heading-main text-[1.05rem] text-[var(--color-primary)] mb-2">Need an event planned for your special occasion?</h4>
+                    <p className="text-[0.78rem] text-[var(--color-text-muted)] leading-relaxed mb-3">Reach out to our event planning team for weddings, family celebrations, private parties, cultural programmes, and other special occasions.</p>
+                    <p className="eyebrow text-[0.62rem] tracking-widest text-[var(--color-accent)] mb-1">EMAIL</p>
+                    <p className="text-[0.82rem] font-medium text-[var(--color-text-main)] mb-4">nithyaevents2017@gmail.com</p>
+                    <a href="mailto:nithyaevents2017@gmail.com" className="inline-flex items-center gap-2 px-5 py-2 rounded border border-[var(--color-primary)] text-[var(--color-primary)] text-[0.68rem] font-semibold tracking-widest uppercase hover:bg-[var(--color-primary)] hover:text-white transition-all">
+                      <Mail className="w-3.5 h-3.5" /> EMAIL US FOR EVENTS <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Right: Form ── */}
+          <div className="bg-white/85 backdrop-blur-md rounded-2xl border border-[var(--color-accent)]/25 p-8 shadow-xl xl:mr-12">
+            <h3 className="heading-main text-[1.8rem] text-[var(--color-text-main)] mb-6">
+              Enter Your <span className="text-[var(--color-primary)]">Details</span>
+            </h3>
+            <form className="space-y-4">
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">FULL NAME</label>
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your full name" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+              </div>
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">PHONE NUMBER</label>
+                <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter your phone number" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+              </div>
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EMAIL ADDRESS</label>
+                <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT TYPE</label>
+                  <select name="eventType" value={formData.eventType} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
+                    <option>Select event type</option>
+                    <option>Wedding</option>
+                    <option>Corporate Event</option>
+                    <option>Cultural Event</option>
+                    <option>Private Party</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT DATE</label>
+                  <input type="date" name="eventDate" value={formData.eventDate} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                </div>
+              </div>
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">EVENT LOCATION</label>
+                <input type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="Enter event location" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+              </div>
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">BUDGET</label>
+                <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full bg-white border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] transition-colors appearance-none">
+                  <option>Select your estimated budget</option>
+                  <option>Less than ₹1,00,000</option>
+                  <option>₹1,00,000 - ₹5,00,000</option>
+                  <option>₹5,00,000 - ₹10,00,000</option>
+                  <option>₹10,00,000+</option>
+                  <option>Custom Budget</option>
+                </select>
+              </div>
+              
+              {formData.budget === 'Custom Budget' && (
+                <div>
+                  <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">CUSTOM BUDGET</label>
+                  <input type="text" name="customBudget" value={formData.customBudget} onChange={handleInputChange} placeholder="Enter your custom budget" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors" />
+                  {errors.customBudget && <p className="text-red-500 text-xs mt-1">{errors.customBudget}</p>}
+                </div>
+              )}
+
+              <div>
+                <label className="block eyebrow tracking-widest text-[0.62rem] font-bold text-[var(--color-accent)] mb-1.5">MESSAGE</label>
+                <textarea name="message" value={formData.message} onChange={handleInputChange} rows={3} placeholder="Tell us about your event" className="w-full bg-transparent border border-[var(--color-accent)]/30 rounded-md px-4 py-3 text-[0.85rem] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)]/50 focus:outline-none focus:border-[var(--color-primary)] transition-colors resize-none"></textarea>
+              </div>
+              <button type="button" onClick={handleWhatsAppSubmit} className="btn-primary w-full py-4 text-[0.8rem] mt-2 group">
+                <svg className="w-4 h-4 fill-white mr-2" viewBox="0 0 24 24"><path d="M12.031 0C5.38 0 0 5.381 0 12.032c0 2.12.548 4.186 1.59 6.002L.007 24l6.113-1.603A11.968 11.968 0 0 0 12.031 24c6.649 0 12.03-5.38 12.03-12.032C24.062 5.38 18.681 0 12.031 0Zm6.602 17.378c-.28.788-1.637 1.488-2.317 1.547-.648.058-1.464.246-4.664-1.074-3.844-1.586-6.273-5.46-6.467-5.719-.193-.26-1.547-2.05-1.547-3.914 0-1.865.976-2.775 1.32-3.146.335-.359.73-.448.971-.448.24 0 .48.002.695.01.233.01.546-.088.855.65.328.784 1.053 2.569 1.144 2.753.091.185.152.4.03.606-.12.206-.182.336-.364.545-.181.208-.382.45-.544.622-.182.193-.377.406-.164.767.213.359.945 1.554 2.034 2.525 1.403 1.25 2.57 1.637 2.934 1.815.364.179.576.152.793-.09.217-.243.93-1.084 1.18-1.455.25-.371.498-.31.834-.185.337.126 2.128 1.002 2.49 1.18.363.18.607.27.695.422.088.152.088.887-.193 1.674Z"/></svg>
+                SEND ENQUIRY ON WHATSAPP <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </form>
+          </div>
         </div>
 
-        {/* Google Maps Embed */}
-        <div className="mt-16 h-[400px] w-full overflow-hidden border border-border bg-card">
-          <iframe
-            title="NithyA EventS Location"
-            src="https://maps.google.com/maps?q=MJS%20Business%20Centre,%20Karimnagar&t=&z=19&ie=UTF8&iwloc=&output=embed"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={true}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="filter grayscale contrast-125 opacity-90 transition-all hover:filter-none hover:opacity-100"
-          ></iframe>
+        {/* Feature Highlights Row */}
+        <div className="max-w-3xl mx-auto mt-16 px-6 grid grid-cols-3 gap-4 text-center border-t border-[var(--color-accent)]/20 pt-12 relative z-10">
+          <div className="flex flex-col items-center">
+            <Calendar className="w-6 h-6 text-[var(--color-accent)] mb-3" />
+            <p className="eyebrow tracking-[0.2em] text-[0.68rem] font-bold text-[var(--color-text-main)] mb-1">PLAN</p>
+            <p className="eyebrow tracking-[0.2em] text-[0.58rem] text-[var(--color-text-muted)]">YOUR VISION</p>
+          </div>
+          <div className="flex flex-col items-center border-l border-[var(--color-accent)]/20">
+            <Star className="w-6 h-6 text-[var(--color-accent)] mb-3" />
+            <p className="eyebrow tracking-[0.2em] text-[0.68rem] font-bold text-[var(--color-text-main)] mb-1">CREATE</p>
+            <p className="eyebrow tracking-[0.2em] text-[0.58rem] text-[var(--color-text-muted)]">WITH PASSION</p>
+          </div>
+          <div className="flex flex-col items-center border-l border-[var(--color-accent)]/20">
+            <Heart className="w-6 h-6 text-[var(--color-accent)] mb-3" />
+            <p className="eyebrow tracking-[0.2em] text-[0.68rem] font-bold text-[var(--color-text-main)] mb-1">CELEBRATE</p>
+            <p className="eyebrow tracking-[0.2em] text-[0.58rem] text-[var(--color-text-muted)]">BEAUTIFUL MOMENTS</p>
+          </div>
         </div>
       </section>
 
-      <footer className="border-t border-border py-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 sm:flex-row">
-          <div className="flex flex-col items-center sm:items-start gap-2">
-            <img src={logoImg} alt="NithyA EventS Logo" className="h-12 w-auto object-contain" />
-            <p className="text-xs text-muted-foreground">We celebrate your dreams</p>
+      {/* ══════════════════════════════════════════════
+          MAP & CONNECT SECTION
+      ══════════════════════════════════════════════ */}
+      <section className="relative pt-24 pb-24 overflow-hidden bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10 grid xl:grid-cols-[1fr_1fr] gap-16">
+          <div className="w-full rounded-2xl overflow-hidden border border-[var(--color-accent)]/25 shadow-xl h-[440px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800.7410313264426!2d79.1278!3d18.435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bccd8e11e018ce7%3A0x7aaf762b38516aa7!2sNithyA%20EventS!5e0!3m2!1sen!2sin!4v1714490000000!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} NithyA EventS, Karimnagar. All rights reserved.
-          </p>
-          <a href="#top" className="text-xs uppercase tracking-[0.2em] text-primary">
-            Back to top
-          </a>
+
+          <div className="flex flex-col justify-center xl:pr-24">
+            <h3 className="heading-main text-[2.4rem] mb-4 text-[var(--color-text-main)]">
+              Connect <span className="text-[var(--color-primary)]">With Us</span>
+            </h3>
+            <p className="text-[0.97rem] text-[var(--color-text-muted)] mb-10 leading-relaxed max-w-md">
+              Follow our journey, see our latest events, and stay connected with NithyA Events on social media.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+                <Instagram className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
+                <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Instagram</span>
+              </a>
+              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+                <Facebook className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
+                <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Facebook</span>
+              </a>
+              <a href="#" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+                <Youtube className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
+                <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">YouTube</span>
+              </a>
+              <a href="mailto:nithyaevents2017@gmail.com" className="flex flex-col items-center justify-center p-6 bg-white border border-[var(--color-accent)]/20 rounded-xl hover:border-[var(--color-primary)] hover:shadow-lg transition-all group">
+                <Mail className="w-8 h-8 text-[var(--color-primary)] mb-3 group-hover:scale-110 transition-transform" />
+                <span className="text-[0.8rem] font-medium text-[var(--color-text-main)]">Email</span>
+              </a>
+            </div>
+          </div>
         </div>
-      </footer>
+      </section>
+
     </div>
   );
 }
