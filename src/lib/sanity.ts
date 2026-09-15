@@ -3,7 +3,7 @@ import createImageUrlBuilder from "@sanity/image-url";
 
 // Setup the read-only client for fetching data
 export const sanityClient = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || "479tsopf",
+  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || "5h74mgyt",
   dataset: import.meta.env.VITE_SANITY_DATASET || "production",
   useCdn: true, // Use CDN for extremely fast caching (ideal for public gallery)
   apiVersion: "2024-03-01",

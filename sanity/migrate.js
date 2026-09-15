@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 
 // Setup Sanity client for writing
 const client = createClient({
-  projectId: "479tsopf",
+  projectId: "5h74mgyt",
   dataset: "production",
   useCdn: false,
   apiVersion: "2024-03-01",

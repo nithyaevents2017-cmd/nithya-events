@@ -2,7 +2,7 @@ import { defineConfig } from "sanity";
 
 export default defineConfig({
   api: {
-    projectId: "479tsopf",
+    projectId: "5h74mgyt",
     dataset: "production",
   },
 });
