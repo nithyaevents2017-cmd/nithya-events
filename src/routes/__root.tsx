@@ -177,7 +177,9 @@ function RootComponent() {
       <Outlet />
       <Footer />
       <FloatingContact />
-      <div className="elfsight-app-2266d839-24da-4759-b1ca-caf2780f629b" data-elfsight-app-lazy suppressHydrationWarning></div>
+      <div className="fixed top-0 left-0 pointer-events-none">
+        <div className="elfsight-app-2266d839-24da-4759-b1ca-caf2780f629b pointer-events-auto" data-elfsight-app-lazy suppressHydrationWarning></div>
+      </div>
     </QueryClientProvider>
   );
 }

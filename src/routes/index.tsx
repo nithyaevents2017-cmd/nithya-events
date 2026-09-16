@@ -183,7 +183,7 @@ function Home() {
           {/* ── Left Text Column ── */}
           <div className="flex flex-col items-start pt-6 pb-6 sm:pt-8 lg:pt-12 xl:pt-14 lg:pr-6 xl:pr-8 relative z-[12]">
             <div className="flex items-center gap-4 mb-4 lg:mb-5">
-              <span className="eyebrow tracking-[0.25em] text-[0.7rem] font-bold text-[var(--color-text-muted)] uppercase">TURNING MOMENTS INTO MEMORIES</span>
+              <span className="eyebrow tracking-[0.25em] text-[0.7rem] font-bold text-[var(--color-accent)] uppercase">TURNING MOMENTS INTO MEMORIES</span>
               <span className="w-12 h-px bg-[var(--color-accent)]/40" />
             </div>
 
