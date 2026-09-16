@@ -110,12 +110,12 @@ function GalleryPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {images.map((imgDoc, i) => {
-              const src = urlFor(imgDoc.image).width(800).url();
+              const src = urlFor(imgDoc.image).width(800).height(800).fit("crop").auto("format").url();
               return (
                 <button
                   key={imgDoc._id}
                   onClick={() => setSelectedIndex(i)}
-                  className="group relative overflow-hidden rounded-xl border border-[var(--color-accent)]/20 bg-background transition-all duration-500 hover:border-[var(--color-primary)] hover:shadow-[0_10px_30px_rgba(122,16,45,0.15)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 focus:ring-offset-background aspect-square"
+                  className="group relative block w-full overflow-hidden rounded-xl border border-[var(--color-accent)]/20 bg-background transition-all duration-500 hover:border-[var(--color-primary)] hover:shadow-[0_10px_30px_rgba(122,16,45,0.15)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 focus:ring-offset-background aspect-square"
                   aria-label={`View Gallery Image ${i + 1}`}
                 >
                   <img
@@ -124,7 +124,7 @@ function GalleryPage() {
                     loading="lazy"
                     width="800"
                     height="800"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="absolute inset-0 block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)]/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 </button>
@@ -169,9 +169,9 @@ function GalleryPage() {
 
               <img
                 key={images[selectedIndex]._id}
-                src={urlFor(images[selectedIndex].image).width(1600).url()}
+                src={urlFor(images[selectedIndex].image).width(1600).auto("format").url()}
                 alt="Event celebration by NithyA EventS"
-                className="max-h-[85vh] max-w-[85vw] object-contain animate-in fade-in zoom-in-95 duration-300 shadow-2xl rounded-md border border-white/10"
+                className="max-h-[85vh] max-w-[85vw] block object-contain object-center animate-in fade-in zoom-in-95 duration-300 shadow-2xl rounded-md border border-white/10"
               />
 
               <button
