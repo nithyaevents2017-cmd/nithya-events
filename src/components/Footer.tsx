@@ -41,13 +41,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-8 mt-4 gap-4">
-          <p className="text-[0.75rem] text-white/50 tracking-wide">
-            © {new Date().getFullYear()} NithyA EventS, Karimnagar. All rights reserved.
+        {/* Developer Credentials */}
+        <div className="flex flex-col items-center justify-center gap-3 text-center w-full">
+          <p className="text-[0.85rem] text-white/70 font-light tracking-wide">
+            © 2026 Nithya Events, Karimnagar. All rights reserved.
           </p>
-          <a href="#top" className="group flex items-center gap-2 text-[0.75rem] tracking-[0.15em] uppercase text-white/50 hover:text-[var(--color-accent)] transition-colors">
-            BACK TO TOP <ArrowUp className="w-3 h-3 group-hover:-translate-y-1 transition-transform" />
-          </a>
+          <p className="text-[0.85rem] text-white/70 tracking-wide">
+            Website Designed & Developed by <a href="https://www.linkedin.com/company/avighnex-it-services/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="font-semibold text-white hover:text-[var(--color-accent)] transition-colors">AVIGHNEX IT SERVICES</a>
+          </p>
+          <p className="text-[0.85rem] text-white/70 tracking-wide">
+            Email: <a href="mailto:avighnexitservices@gmail.com" className="font-semibold text-white hover:text-[var(--color-accent)] transition-colors">avighnexitservices@gmail.com</a>
+          </p>
         </div>
       </div>
     </footer>
