@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoImg from "../assets/logo.png";
+import logoImg from "../assets/logo-white.png";
 import { Instagram, Facebook, Youtube, Mail, ArrowUp } from "lucide-react";
 
 export function Footer() {
@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
           
           <div className="flex flex-col items-center md:items-start gap-1">
-            <img src={logoImg} alt="NithyA EventS Logo" className="h-16 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] invert hue-rotate-180" />
+            <img src={logoImg} alt="NithyA EventS Logo" className="h-16 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]" />
             <p className="script-text text-white/80 text-xl tracking-wide">We celebrate your dreams</p>
           </div>
 
