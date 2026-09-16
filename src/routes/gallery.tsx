@@ -6,19 +6,30 @@ import { sanityClient, urlFor, SanityGalleryImage } from "@/lib/sanity";
 import { SITE_URL } from "@/config";
 
 export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Event Decoration & Wedding Gallery in Karimnagar | NithyA EventS" },
-      {
-        name: "description",
-        content:
-          "A curated glimpse into our portfolio of beautiful weddings, corporate events, stage decorations, and unforgettable moments crafted by NithyA EventS in Karimnagar.",
-      },
-    ],
-    links: [
-      { rel: "canonical", href: `${SITE_URL}/gallery` }
-    ]
-  }),
+  head: () => {
+    const title = "Event & Wedding Gallery | NithyA EventS Portfolio";
+    const description = "A curated glimpse into our portfolio of beautiful weddings, corporate events, stage decorations, and unforgettable moments crafted by NithyA EventS in Karimnagar.";
+    const url = `${SITE_URL}/gallery`;
+    const ogImage = `${SITE_URL}/favicon.png`;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:url", content: url },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "canonical", href: url }
+      ]
+    };
+  },
   component: GalleryPage,
 });
 

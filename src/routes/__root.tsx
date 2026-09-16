@@ -78,6 +78,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "robots", content: "index, follow" },
+      { name: "googlebot", content: "index, follow" },
       { title: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
       {
         name: "description",
@@ -91,6 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "NithyA EventS creates memorable weddings, corporate events, cultural celebrations and private events in Karimnagar with creative planning and professional execution.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: `${SITE_URL}/favicon.png` },
       { property: "og:site_name", content: "NithyA EventS" },

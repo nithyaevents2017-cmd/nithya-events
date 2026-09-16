@@ -20,15 +20,31 @@ import mehendiImg from "../../services/mehendi designs.jpg";
 import beauticianImg from "../../services/beautician_makeup.jpg";
 
 export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Event Services in Karimnagar | NithyA EventS" },
-      { name: "description", content: "Professional event services in Karimnagar including catering, decoration, photography, DJ, and complete event management by NithyA EventS." },
-    ],
-    links: [
-      { rel: "canonical", href: `${SITE_URL}/services` }
-    ]
-  }),
+  head: () => {
+    const title = "Event Services: Catering, Decoration & Photography | NithyA EventS";
+    const description = "Professional event services in Karimnagar including catering, decoration, photography, DJ, and complete event management by NithyA EventS.";
+    const url = `${SITE_URL}/services`;
+    // Ensure absolute URL for OG image
+    const ogImage = decorationImg.startsWith('http') ? decorationImg : `${SITE_URL}${decorationImg.startsWith('/') ? '' : '/'}${decorationImg}`;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:url", content: url },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "canonical", href: url }
+      ]
+    };
+  },
   component: ServicesPage,
 });
 

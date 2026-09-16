@@ -14,16 +14,32 @@ import privatePartyImg from "../../logo/private party.jpeg";
 import { ArrowRight, Play, Users, Calendar, Star, Heart, CheckCircle2, MapPin, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Event Management & Wedding Planners in Karimnagar | NithyA EventS" },
-      { name: "description", content: "NithyA EventS plans and executes beautiful weddings, corporate events, cultural programs and private celebrations in Karimnagar." },
-    ],
-    links: [
-      { rel: "canonical", href: `${SITE_URL}/` },
-      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" }
-    ]
-  }),
+  head: () => {
+    const title = "Event Management & Wedding Planners in Karimnagar | NithyA EventS";
+    const description = "NithyA EventS plans and executes beautiful weddings, corporate events, cultural programs and private celebrations in Karimnagar.";
+    const url = `${SITE_URL}/`;
+    // Ensure absolute URL for OG image
+    const ogImage = heroImg.startsWith('http') ? heroImg : `${SITE_URL}${heroImg.startsWith('/') ? '' : '/'}${heroImg}`;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:url", content: url },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" }
+      ]
+    };
+  },
   component: Home,
 });
 
