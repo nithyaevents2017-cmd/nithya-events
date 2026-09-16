@@ -115,6 +115,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..800;1,400..700&display=swap",
       },
     ],
+    scripts: [
+      {
+        src: "https://elfsightcdn.com/platform.js",
+        async: true,
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -168,6 +174,7 @@ function RootComponent() {
       <Outlet />
       <Footer />
       <FloatingContact />
+      <div className="elfsight-app-2266d839-24da-4759-b1ca-caf2780f629b" data-elfsight-app-lazy suppressHydrationWarning></div>
     </QueryClientProvider>
   );
 }
